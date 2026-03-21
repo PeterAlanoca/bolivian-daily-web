@@ -26,6 +26,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('sources', \App\Http\Controllers\Admin\SourceController::class)->except(['show']);
         Route::resource('news', \App\Http\Controllers\Admin\NewsController::class);
     });
+
+    // Cualquier otra ruta no registrada dentro de /admin/ resultará en un 404
+    Route::any('{any}', function () {
+        abort(404);
+    })->where('any', '.*');
 });
 
 // ===================== FRONTEND PUBLICO =====================

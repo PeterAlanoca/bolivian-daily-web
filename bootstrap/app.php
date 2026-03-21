@@ -14,6 +14,9 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'admin' => \App\Http\Middleware\AdminMiddleware::class,
         ]);
+        
+        // Redirigir siempre a la página de login del admin si la sesión expira o no existe
+        $middleware->redirectGuestsTo(fn ($request) => route('admin.login'));
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //
