@@ -759,29 +759,55 @@
             margin-top: 8px;
         }
 
-        /* ---- Pagination ---- */
-        .pagination-wrap {
+        /* ---- Pagination Override (Bootstrap 5 Structure) ---- */
+        .pagination {
             display: flex;
             justify-content: center;
-            gap: 4px;
-            margin-top: 40px;
-            padding-top: 32px;
-            border-top: 1px solid var(--gray-border);
+            list-style: none;
+            gap: 6px;
+            margin-top: 32px;
         }
-        .pagination-wrap a, .pagination-wrap span {
+        .pagination-wrap { /* Container if used */ display: flex; justify-content: center; width: 100%; }
+        .page-item .page-link {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 36px;
             height: 36px;
+            min-width: 36px;
+            padding: 0 10px;
             font-family: var(--font-sans);
             font-size: 13px;
             border: 1px solid var(--gray-border);
             color: var(--black);
+            background: #fff;
+            transition: background 0.15s;
+            text-decoration: none;
+        }
+        /* Resets for the default Laravel Tailwind pagination SVGs if needed */
+        .pagination-wrap nav { display: flex; align-items: center; justify-content: center; font-size: 13px; width: 100%; }
+        
+        /* Ocultar elementos redundantes del paginador por defecto de Laravel */
+        .pagination-wrap nav > div:first-child { display: none !important; } /* Oculta botones móviles Prev/Next */
+        .pagination-wrap nav > div:nth-child(2) > div:first-child { display: none !important; } /* Oculta texto 'Showing X to Y' */
+        .pagination-wrap nav > div:nth-child(2) { display: flex; justify-content: center; width: 100%; }
+
+        .pagination-wrap p { margin-bottom: 0px !important; }
+        .pagination-wrap a, .pagination-wrap span[aria-current], .pagination-wrap span.relative.inline-flex {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 12px;
+            font-family: var(--font-sans);
+            font-size: 13px;
+            border: 1px solid var(--gray-border);
+            color: var(--black);
+            background: #fff;
             transition: background 0.15s;
         }
-        .pagination-wrap a:hover { background: var(--gray-bg); text-decoration: none; }
-        .pagination-wrap .active { background: var(--black); color: var(--white); border-color: var(--black); }
+        .page-item .page-link:hover { background: var(--gray-bg); text-decoration: none; }
+        .page-item.active .page-link { background: var(--black); color: var(--white); border-color: var(--black); }
+        .page-item.disabled .page-link { color: var(--gray-light); cursor: not-allowed; opacity: 0.6; }
+        .page-link svg { width: 14px; height: 14px; }
 
         /* ============================================================
            RESPONSIVE

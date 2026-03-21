@@ -80,27 +80,7 @@
 {{-- Pagination --}}
 @if($news->hasPages())
 <div class="pagination-wrap">
-    {{-- Previous --}}
-    @if($news->onFirstPage())
-        <span style="opacity:.4;">&lsaquo;</span>
-    @else
-        <a href="{{ $news->previousPageUrl() }}" aria-label="Anterior">&lsaquo;</a>
-    @endif
-
-    @foreach($news->getUrlRange(1, $news->lastPage()) as $page => $url)
-        @if($page == $news->currentPage())
-            <span class="active">{{ $page }}</span>
-        @else
-            <a href="{{ $url }}">{{ $page }}</a>
-        @endif
-    @endforeach
-
-    {{-- Next --}}
-    @if($news->hasMorePages())
-        <a href="{{ $news->nextPageUrl() }}" aria-label="Siguiente">&rsaquo;</a>
-    @else
-        <span style="opacity:.4;">&rsaquo;</span>
-    @endif
+    {{ $news->links() }}
 </div>
 @endif
 
