@@ -872,7 +872,7 @@
                     @foreach($navCategories as $navCat)
                     <li class="main-nav__item">
                         <a href="{{ route('category.show', ['category' => $navCat->url]) }}"
-                           class="{{ (request()->route('url') === $navCat->url) ? 'active' : '' }}">
+                           class="{{ (request()->route('category') === $navCat->url) ? 'active' : '' }}">
                             {{ $navCat->name }}
                         </a>
                     </li>
