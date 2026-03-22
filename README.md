@@ -64,7 +64,7 @@ bolivian-daily-web/
 
 - **Core**: Laravel 12 / PHP 8.2
 - **Base de Datos**: MySQL (para la plataforma web)
-- **Frontend**: HTML5, Blade, Vanilla CSS, Alpine.js
+- **Frontend**: Blade (Laravel), Tailwind CSS (Framework base) y Vanilla CSS (Estilos personalizados)
 - **Contenedores**: Docker (Laravel Sail)
 - **Servidor Local**: XAMPP / Apache
 - **Integración**: API REST para recibir datos del Worker de Scraping
