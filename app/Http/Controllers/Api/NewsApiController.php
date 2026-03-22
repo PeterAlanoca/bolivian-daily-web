@@ -35,7 +35,7 @@ class NewsApiController extends Controller
             'publication_date' => 'required|date',
             'multimedia'    => 'nullable|array',
             'multimedia.*.url'  => 'required|url',
-            'multimedia.*.type' => 'nullable|string|in:image,video',
+            'multimedia.*.type' => 'nullable|string',
             'multimedia.*.description' => 'nullable|string|max:255',
         ]);
 

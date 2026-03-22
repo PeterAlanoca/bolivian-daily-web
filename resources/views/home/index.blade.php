@@ -19,6 +19,13 @@
             @if($hero->subtitle)
             <p class="hero__subtitle">{{ $hero->subtitle }}</p>
             @endif
+            
+            @if($hero->enter)
+            <p class="hero__excerpt" style="font-family:var(--font-body); font-size:18px; line-height:1.6; color:var(--gray-dark); margin-bottom:20px; display:-webkit-box; -webkit-line-clamp:4; -webkit-box-orient:vertical; overflow:hidden;">
+                {{ $hero->enter }}
+            </p>
+            @endif
+
             <div class="hero__meta">
                 @if($hero->author)
                 <span class="hero__author">{{ $hero->author }}</span>

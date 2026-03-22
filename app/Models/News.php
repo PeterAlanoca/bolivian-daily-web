@@ -40,7 +40,11 @@ class News extends Model
 
     public function mainImage(): ?string
     {
-        $media = $this->multimedia()->where('type', 'image')->where('state', 'A')->first();
+        $media = $this->multimedia()
+            ->where('type', 'LIKE', 'image%')
+            ->where('state', 'A')
+            ->first();
+            
         return $media ? $media->url : null;
     }
 }

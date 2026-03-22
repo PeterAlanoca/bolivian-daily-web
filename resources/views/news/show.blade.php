@@ -54,7 +54,7 @@
         </div>
 
         {{-- Additional multimedia --}}
-        @php $moreImages = $news->multimedia->where('type','image')->where('state','A')->skip(1); @endphp
+        @php $moreImages = $news->multimedia->filter(fn($m) => str_contains($m->type, 'image') && $m->state == 'A')->skip(1); @endphp
         @if($moreImages->count())
         <div style="margin-top:32px;">
             <div class="section-header"><span class="section-header__name">Galería</span></div>
