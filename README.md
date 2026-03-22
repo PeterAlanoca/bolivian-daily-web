@@ -1,7 +1,5 @@
 # Bolivian Daily - Sistema Full Stack de Gestión de Noticias
 
----
-
 ## 1. Resumen
 
 El presente proyecto aborda el desarrollo de un sistema **Full Stack** orientado a la automatización de la recopilación y publicación de noticias digitales, mediante la integración de tecnologías de web scraping y servicios externos basados en inteligencia artificial.
@@ -35,7 +33,34 @@ La plataforma web está construida sobre el framework **Laravel**, siguiendo el 
 
 ---
 
-## 4. Stack Tecnológico
+## 4. Estructura de Directorios
+
+Principales carpetas y archivos del proyecto:
+
+```text
+bolivian-daily-web/
+├── app/
+│   ├── Http/
+│   │   ├── Controllers/   # Lógica principal del sistema (Admin y Públicos)
+│   │   │   └── Api/       # Endpoint para recepción de noticias (Scraper)
+│   └── Models/            # Modelos de datos (News, Category, Source, etc.)
+├── bootstrap/             # Configuración de arranque del framework
+├── config/                # Archivos de configuración general
+├── database/
+│   ├── migrations/        # Estructura de las tablas SQL
+│   └── seeders/           # Datos iniciales de prueba
+├── public/                # Punto de entrada y assets (CSS, JS, Imágenes)
+├── resources/
+│   └── views/             # Plantillas Blade (Frontend y Layouts)
+├── routes/
+│   ├── api.php            # Rutas para el servicio de noticias automatizado
+│   └── web.php            # Rutas para la navegación pública y admin
+└── .env                   # Variables de entorno y credenciales
+```
+
+---
+
+## 5. Stack Tecnológico
 
 - **Core**: Laravel 12 / PHP 8.2
 - **Base de Datos**: MySQL (para la plataforma web)
@@ -46,7 +71,7 @@ La plataforma web está construida sobre el framework **Laravel**, siguiendo el 
 
 ---
 
-## 5. Estructura de la Base de Datos
+## 6. Estructura de la Base de Datos
 
 El esquema principal consta de las siguientes tablas:
 
@@ -58,7 +83,7 @@ El esquema principal consta de las siguientes tablas:
 
 ---
 
-## 6. Instalación y Configuración
+## 7. Instalación y Configuración
 
 ### Requisitos Previos
 
@@ -107,7 +132,7 @@ El esquema principal consta de las siguientes tablas:
 
 ---
 
-## 7. Autor y Licencia
+## 8. Autor y Licencia
 
 - **Autor**: Peter Alanoca
 - **Proyecto**: Académico / Especialidad en Desarrollo Full Stack
