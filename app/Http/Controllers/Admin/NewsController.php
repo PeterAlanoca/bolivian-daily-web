@@ -73,7 +73,7 @@ class NewsController extends Controller
                 'news_id' => $news->id,
                 'description' => $request->title,
                 'url' => $imageUrl,
-                'type' => 'image',
+                'type' => $request->file('image')->getMimeType(),
                 'state' => 'A',
             ]);
         }
@@ -136,13 +136,16 @@ class NewsController extends Controller
             if ($multimedia) {
                 // Technically we should delete the old physical file from storage to save space
                 // Storage::disk('public')->delete(str_replace(asset('storage/'), '', $multimedia->url));
-                $multimedia->update(['url' => $imageUrl]);
+                $multimedia->update([
+                    'url' => $imageUrl,
+                    'type' => $request->file('image')->getMimeType()
+                ]);
             } else {
                 Multimedia::create([
                     'news_id' => $news->id,
                     'description' => $request->title,
                     'url' => $imageUrl,
-                    'type' => 'image',
+                    'type' => $request->file('image')->getMimeType(),
                     'state' => 'A',
                 ]);
             }
