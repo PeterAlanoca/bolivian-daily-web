@@ -140,19 +140,29 @@
             padding: 4px;
         }
         .masthead__hamburger {
+            display: none !important; /* Totalmente oculto en escritorio */
+            flex-direction: column;
+            gap: 4px;
             background: none;
             border: none;
             cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-            padding: 4px;
+            padding: 15px; /* Más área de click */
+            position: absolute;
+            left: 10px; /* Al inicio de la pantalla */
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 101; 
         }
         .masthead__hamburger span {
             display: block;
-            width: 22px;
+            width: 24px;
             height: 2px;
             background: var(--black);
+            transition: 0.3s;
+        }
+        
+        @media (max-width: 1024px) {
+            .masthead__hamburger { display: flex !important; }
         }
 
         /* ============================================================
@@ -164,13 +174,24 @@
             -webkit-overflow-scrolling: touch;
             scrollbar-width: none;
         }
+        @media (max-width: 1024px) {
+            .main-nav { display: none; }
+        }
         .main-nav::-webkit-scrollbar { display: none; }
         .main-nav__list {
             display: flex;
             list-style: none;
             gap: 0;
             white-space: nowrap;
-            justify-content: center;
+            justify-content: flex-start; /* Permite scroll natural desde el inicio */
+            padding: 0 10px;
+        }
+
+        @media (min-width: 1025px) {
+            .main-nav__list {
+                justify-content: center; /* Centrar solo en pantallas grandes */
+                padding: 0;
+            }
         }
         .main-nav__item a {
             display: block;
@@ -832,6 +853,86 @@
             .cat-news-grid { grid-template-columns: 1fr; }
             .footer__grid { grid-template-columns: 1fr; }
         }
+
+        /* MOBILE MENU DRAWER STYLES */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1000;
+            visibility: hidden;
+            transition: visibility 0.3s;
+        }
+        .mobile-menu.active {
+            visibility: visible;
+        }
+        .mobile-menu__overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .mobile-menu.active .mobile-menu__overlay {
+            opacity: 1;
+        }
+        .mobile-menu__content {
+            position: absolute;
+            top: 0;
+            left: -300px;
+            width: 300px;
+            height: 100%;
+            background: #fff;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            transition: left 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+        .mobile-menu.active .mobile-menu__content {
+            left: 0;
+        }
+        .mobile-menu__header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            border-bottom: 1px solid var(--gray-border);
+            padding-bottom: 15px;
+        }
+        .mobile-menu__close {
+            background: none;
+            border: none;
+            font-size: 32px;
+            cursor: pointer;
+            line-height: 1;
+        }
+        .mobile-menu__list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .mobile-menu__item {
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .mobile-menu__item a {
+            display: block;
+            padding: 15px 0;
+            font-family: var(--font-sans);
+            font-size: 16px;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: var(--black);
+            text-decoration: none;
+        }
+        .mobile-menu__item a.active {
+            color: var(--gray-light);
+        }
     </style>
 
     @stack('styles')
@@ -849,6 +950,11 @@
 
     {{-- MASTHEAD --}}
     <header class="masthead">
+        <button class="masthead__hamburger" id="mobile-menu-toggle" aria-label="Abrir menú">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
         <div class="container">
             <div class="masthead__top">
                 <div class="masthead__logo">
@@ -881,6 +987,30 @@
             </div>
         </nav>
     </header>
+
+    {{-- MOBILE MENU DRAWER --}}
+    <div class="mobile-menu" id="mobile-menu">
+        <div class="mobile-menu__overlay" id="mobile-menu-overlay"></div>
+        <div class="mobile-menu__content">
+            <div class="mobile-menu__header">
+                <div class="masthead__logo-text" style="font-size: 24px;">Bolivian Daily</div>
+                <button class="mobile-menu__close" id="mobile-menu-close" aria-label="Cerrar menú">&times;</button>
+            </div>
+            <ul class="mobile-menu__list">
+                <li class="mobile-menu__item">
+                    <a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'active' : '' }}">Inicio</a>
+                </li>
+                @foreach($navCategories as $navCat)
+                <li class="mobile-menu__item">
+                    <a href="{{ route('category.show', ['category' => $navCat->url]) }}"
+                       class="{{ (request()->route('category') === $navCat->url) ? 'active' : '' }}">
+                        {{ $navCat->name }}
+                    </a>
+                </li>
+                @endforeach
+            </ul>
+        </div>
+    </div>
 
     {{-- BREAKING TICKER --}}
     <div class="breaking-ticker">
@@ -917,5 +1047,22 @@
     </footer>
 
     @stack('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const toggle = document.getElementById('mobile-menu-toggle');
+            const close = document.getElementById('mobile-menu-close');
+            const menu = document.getElementById('mobile-menu');
+            const overlay = document.getElementById('mobile-menu-overlay');
+
+            function toggleMenu() {
+                menu.classList.toggle('active');
+                document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : '';
+            }
+
+            if (toggle) toggle.addEventListener('click', toggleMenu);
+            if (close) close.addEventListener('click', toggleMenu);
+            if (overlay) overlay.addEventListener('click', toggleMenu);
+        });
+    </script>
 </body>
 </html>
