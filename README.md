@@ -1,8 +1,9 @@
 # Bolivian Daily - Sistema Full Stack de Gestión de Noticias
 
-![Bolivian Daily Logo](https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg)
+---
 
-## 1. Resumen Ejecutivo
+## 1. Resumen
+
 El presente proyecto aborda el desarrollo de un sistema **Full Stack** orientado a la automatización de la recopilación y publicación de noticias digitales, mediante la integración de tecnologías de web scraping y servicios externos basados en inteligencia artificial.
 
 La propuesta surge ante la problemática asociada a los procesos manuales de búsqueda, selección y publicación de noticias, los cuales generan ineficiencias operativas. El sistema optimiza estos procesos mediante una arquitectura estructurada y escalable que articula el frontend, backend y servicios automatizados de recolección de datos.
@@ -12,9 +13,11 @@ La propuesta surge ante la problemática asociada a los procesos manuales de bú
 ## 2. Objetivos
 
 ### Objetivo General
+
 Desarrollar un sistema Full Stack orientado a la recopilación, procesamiento y publicación de noticias digitales mediante la integración de tecnologías de web scraping y el uso de una API externa de inteligencia artificial para reducir la intervención manual.
 
 ### Objetivos Específicos
+
 - Diseñar una arquitectura Full Stack desacoplada (Frontend, Backend, Base de Datos).
 - Implementar un módulo de extracción automatizada de noticias.
 - Construir una interfaz web para la administración y visualización de contenidos.
@@ -23,6 +26,7 @@ Desarrollar un sistema Full Stack orientado a la recopilación, procesamiento y 
 ---
 
 ## 3. Arquitectura del Sistema (MVC)
+
 La plataforma web está construida sobre el framework **Laravel**, siguiendo el patrón de diseño **Modelo-Vista-Controlador (MVC)**:
 
 - **Modelos (`app/Models`)**: Gestionan la lógica de datos y las relaciones mediante Eloquent ORM.
@@ -32,6 +36,7 @@ La plataforma web está construida sobre el framework **Laravel**, siguiendo el 
 ---
 
 ## 4. Stack Tecnológico
+
 - **Core**: Laravel 12 / PHP 8.2
 - **Base de Datos**: MySQL (para la plataforma web)
 - **Frontend**: HTML5, Blade, Vanilla CSS, Alpine.js
@@ -42,6 +47,7 @@ La plataforma web está construida sobre el framework **Laravel**, siguiendo el 
 ---
 
 ## 5. Estructura de la Base de Datos
+
 El esquema principal consta de las siguientes tablas:
 
 1.  **users**: Información de administradores y editores del sistema.
@@ -55,12 +61,14 @@ El esquema principal consta de las siguientes tablas:
 ## 6. Instalación y Configuración
 
 ### Requisitos Previos
+
 - PHP >= 8.2
 - Composer
 - MySQL o MariaDB
 - Node.js & NPM
 
 ### Opción A: Instalación con XAMPP
+
 1.  Clonar el repositorio en `htdocs`.
 2.  Instalar dependencias de PHP:
     ```bash
@@ -86,6 +94,7 @@ El esquema principal consta de las siguientes tablas:
     ```
 
 ### Opción B: Instalación con Docker (Laravel Sail)
+
 1.  Levantar los contenedores:
     ```bash
     ./vendor/bin/sail up -d
@@ -99,9 +108,11 @@ El esquema principal consta de las siguientes tablas:
 ---
 
 ## 7. Autor y Licencia
+
 - **Autor**: Peter Alanoca
 - **Proyecto**: Académico / Especialidad en Desarrollo Full Stack
 - **Licencia**: [MIT License](https://opensource.org/licenses/MIT) (Software Libre)
 
 ---
-*Este proyecto es parte de un prototipo funcional para la gestión automatizada de medios digitales.*
+
+_Este proyecto es parte de un prototipo funcional para la gestión automatizada de medios digitales._
