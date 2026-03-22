@@ -67,7 +67,7 @@ bolivian-daily-web/
 - **Frontend**: HTML5, Blade, Vanilla CSS, Alpine.js
 - **Contenedores**: Docker (Laravel Sail)
 - **Servidor Local**: XAMPP / Apache
-- **Integración**: API REST para recibir datos del Worker de Scraping (.NET 8)
+- **Integración**: API REST para recibir datos del Worker de Scraping
 
 ---
 
