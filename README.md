@@ -1,143 +1,59 @@
-# Bolivian Daily - Sistema Full Stack de Gestión de Noticias
+# BolivianDaily
 
-## 1. Resumen
+This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.27.
 
-El presente proyecto aborda el desarrollo de un sistema **Full Stack** orientado a la automatización de la recopilación y publicación de noticias digitales, mediante la integración de tecnologías de web scraping y servicios externos basados en inteligencia artificial.
+## Development server
 
-La propuesta surge ante la problemática asociada a los procesos manuales de búsqueda, selección y publicación de noticias, los cuales generan ineficiencias operativas. El sistema optimiza estos procesos mediante una arquitectura estructurada y escalable que articula el frontend, backend y servicios automatizados de recolección de datos.
+To start a local development server, run:
 
----
-
-## 2. Objetivos
-
-### Objetivo General
-
-Desarrollar un sistema Full Stack orientado a la recopilación, procesamiento y publicación de noticias digitales mediante la integración de tecnologías de web scraping y el uso de una API externa de inteligencia artificial para reducir la intervención manual.
-
-### Objetivos Específicos
-
-- Diseñar una arquitectura Full Stack desacoplada (Frontend, Backend, Base de Datos).
-- Implementar un módulo de extracción automatizada de noticias.
-- Construir una interfaz web para la administración y visualización de contenidos.
-- Integrar servicios de IA para el análisis y clasificación de la información.
-
----
-
-## 3. Arquitectura del Sistema (MVC)
-
-La plataforma web está construida sobre el framework **Laravel**, siguiendo el patrón de diseño **Modelo-Vista-Controlador (MVC)**:
-
-- **Modelos (`app/Models`)**: Gestionan la lógica de datos y las relaciones mediante Eloquent ORM.
-- **Vistas (`resources/views`)**: Implementadas con el motor de plantillas Blade para una interfaz dinámica y responsiva.
-- **Controladores (`app/Http/Controllers`)**: Orquestan las peticiones del usuario, procesan la lógica de negocio y devuelven las respuestas adecuadas.
-
----
-
-## 4. Estructura de Directorios
-
-Principales carpetas y archivos del proyecto:
-
-```text
-bolivian-daily-web/
-├── app/
-│   ├── Http/
-│   │   ├── Controllers/   # Lógica principal del sistema (Admin y Públicos)
-│   │   │   └── Api/       # Endpoint para recepción de noticias (Scraper)
-│   └── Models/            # Modelos de datos (News, Category, Source, etc.)
-├── bootstrap/             # Configuración de arranque del framework
-├── config/                # Archivos de configuración general
-├── database/
-│   ├── migrations/        # Estructura de las tablas SQL
-│   └── seeders/           # Datos iniciales de prueba
-├── public/                # Punto de entrada y assets (CSS, JS, Imágenes)
-├── resources/
-│   └── views/             # Plantillas Blade (Frontend y Layouts)
-├── routes/
-│   ├── api.php            # Rutas para el servicio de noticias automatizado
-│   └── web.php            # Rutas para la navegación pública y admin
-└── .env                   # Variables de entorno y credenciales
+```bash
+ng serve
 ```
 
----
+Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
 
-## 5. Stack Tecnológico
+## Code scaffolding
 
-- **Core**: Laravel 12 / PHP 8.2
-- **Base de Datos**: MySQL (para la plataforma web)
-- **Frontend**: Blade (Laravel), Tailwind CSS (Framework base) y Vanilla CSS (Estilos personalizados)
-- **Contenedores**: Docker (Laravel Sail)
-- **Servidor Local**: XAMPP / Apache
-- **Integración**: API REST para recibir datos del Worker de Scraping
+Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
 
----
+```bash
+ng generate component component-name
+```
 
-## 6. Estructura de la Base de Datos
+For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
 
-El esquema principal consta de las siguientes tablas:
+```bash
+ng generate --help
+```
 
-1.  **users**: Información de administradores y editores del sistema.
-2.  **categories**: Clasificación temática de las noticias (Nacional, Economía, etc.).
-3.  **sources**: Orígenes o medios de prensa de donde se extrae la información.
-4.  **news**: Almacena el contenido principal de los artículos (Título, Cuerpo, Slug, Fecha).
-5.  **multimedia**: Gestiona imágenes y videos asociados a cada noticia, incluyendo tipos de MIME y descripciones.
+## Building
 
----
+To build the project run:
 
-## 7. Instalación y Configuración
+```bash
+ng build
+```
 
-### Requisitos Previos
+This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
 
-- PHP >= 8.2
-- Composer
-- MySQL o MariaDB
-- Node.js & NPM
+## Running unit tests
 
-### Opción A: Instalación con XAMPP
+To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
 
-1.  Clonar el repositorio en `htdocs`.
-2.  Instalar dependencias de PHP:
-    ```bash
-    composer install
-    ```
-3.  Configurar el entorno:
-    ```bash
-    cp .env.example .env
-    php artisan key:generate
-    ```
-4.  Configurar tus credenciales de base de datos en el archivo `.env`.
-5.  Ejecutar migraciones y seeders:
-    ```bash
-    php artisan migrate --seed
-    ```
-6.  Instalar dependencias de frontend:
-    ```bash
-    npm install && npm run build
-    ```
-7.  Iniciar servidor:
-    ```bash
-    php artisan serve
-    ```
+```bash
+ng test
+```
 
-### Opción B: Instalación con Docker (Laravel Sail)
+## Running end-to-end tests
 
-1.  Levantar los contenedores:
-    ```bash
-    ./vendor/bin/sail up -d
-    ```
-2.  Ejecutar migraciones:
-    ```bash
-    ./vendor/bin/sail artisan migrate --seed
-    ```
-3.  Acceder a la aplicación en `http://localhost`.
+For end-to-end (e2e) testing, run:
 
----
+```bash
+ng e2e
+```
 
-## 8. Autor y Licencia
+Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
 
-- **Autor**: Peter Alanoca
-- **Proyecto**: Académico / Especialidad en Desarrollo Full Stack
-- **Licencia**: [MIT License](https://opensource.org/licenses/MIT) (Software Libre)
+## Additional Resources
 
----
-
-_Este proyecto es parte de un prototipo funcional para la gestión automatizada de medios digitales._
+For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
