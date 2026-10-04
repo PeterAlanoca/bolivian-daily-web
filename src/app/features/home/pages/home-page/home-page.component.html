@@ -1,123 +1,131 @@
 <div class="site-main">
   <div class="container">
-    <!-- 3-COLUMN TOP FOLD (THE NEWSPAPER FRONT PAGE HERO) -->
-    <div class="top-fold-grid">
-      <!-- LEFT COLUMN: Secondary News Headlines List -->
-      <div class="top-fold-grid__column top-fold-grid__column--left">
-        @for (item of leftColumnNews(); track item.id) {
-          <article class="story">
-            <h3 class="story__title" style="font-size: 17px; line-height: 1.3">
-              <a [routerLink]="['/', item.category?.slug, item.url]">{{ item.title }}</a>
-            </h3>
-            <p class="story__excerpt" style="font-size: 14px">{{ item.subtitle }}</p>
-            <div class="story__meta">
-              @if (item.author) {
-                <span
-                  >Por <span class="story__author">{{ item.author }}</span> &middot;
-                </span>
-              }
-              <span>{{ item.publication_date | timeAgo }}</span>
-            </div>
-          </article>
-        }
+    @if (loading()) {
+      <p class="home-state">Cargando portada…</p>
+    } @else if (error()) {
+      <div class="home-state home-state--error">
+        <p>{{ error() }}</p>
+        <button class="home-state__retry" (click)="retry()">Reintentar</button>
       </div>
-
-      <!-- CENTER COLUMN: Main Lead Story (CVI) -->
-      <div class="top-fold-grid__column">
-        @if (leadNews()) {
-          <article class="lead-story">
-            @if (leadImageUrl()) {
-              <div class="lead-story__image-wrap">
-                <a [routerLink]="['/', leadNews().category?.slug, leadNews().url]">
-                  <img [src]="leadImageUrl()" [alt]="leadNews().title" loading="eager" />
-                </a>
-                <p
-                  style="
-                    font-size: 10px;
-                    color: var(--gray-mid);
-                    margin-top: 4px;
-                    font-style: italic;
-                    font-family: var(--font-sans);
-                  "
-                >
-                  FOTO: {{ leadNews().author }} / Bolivian Daily
-                </p>
+    } @else {
+      @if (feed(); as home) {
+      <!-- 3-COLUMN TOP FOLD (THE NEWSPAPER FRONT PAGE HERO) -->
+      <div class="top-fold-grid">
+        <!-- LEFT COLUMN: Secondary News Headlines List -->
+        <div class="top-fold-grid__column top-fold-grid__column--left">
+          @for (item of home.secondary; track item.id) {
+            <article class="story">
+              <h3 class="story__title" style="font-size: 17px; line-height: 1.3">
+                <a [routerLink]="['/', item.categorySlug, item.url]">{{ item.title }}</a>
+              </h3>
+              <p class="story__excerpt" style="font-size: 14px">{{ item.subtitle }}</p>
+              <div class="story__meta">
+                @if (item.author) {
+                  <span
+                    >Por <span class="story__author">{{ item.author }}</span> &middot;
+                  </span>
+                }
+                <span>{{ item.publicationDate | timeAgo }}</span>
               </div>
-            }
-            @if (leadNews().pretitle) {
-              <div class="story__pretitle" style="font-size: 11px; margin-bottom: 4px">{{ leadNews().pretitle }}</div>
-            }
-            <h1 class="lead-story__title">
-              <a [routerLink]="['/', leadNews().category?.slug, leadNews().url]">{{ leadNews().title }}</a>
-            </h1>
-            <p class="lead-story__excerpt">{{ leadNews().subtitle }}</p>
-            <p
-              style="
-                font-family: var(--font-body);
-                font-size: 14px;
-                line-height: 1.5;
-                color: var(--gray-dark);
-                margin-bottom: 8px;
-              "
-            >
-              {{ leadNews().enter }}
-            </p>
-            <div class="lead-story__meta">
-              @if (leadNews().author) {
-                <span
-                  >Por <span class="lead-story__author">{{ leadNews().author }}</span></span
-                >
-              }
-              <span>&bull;</span>
-              <span>{{ leadNews().publication_date | timeAgo }}</span>
-            </div>
-          </article>
-        }
-      </div>
-
-      <!-- RIGHT COLUMN: Recent News -->
-      <div class="top-fold-grid__column top-fold-grid__column--right">
-        <div class="top-fold-grid__section-header">
-          <h2 class="top-fold-grid__section-title">Recientes</h2>
+            </article>
+          }
         </div>
 
-        @for (item of recentNews(); track item.id) {
-          <article class="recent-card">
-            @if (item.category?.name) {
-              <div class="recent-card__category">{{ item.category?.name }}</div>
-            }
-            <h3 class="recent-card__title">
-              <a [routerLink]="['/', item.category?.slug, item.url]">{{ item.title }}</a>
-            </h3>
-            <div class="recent-card__meta">
-              {{ item.publication_date | timeAgo }}
-            </div>
-          </article>
-        }
-      </div>
-    </div>
+        <!-- CENTER COLUMN: Main Lead Story (CVI) -->
+        <div class="top-fold-grid__column">
+          @if (home.lead; as lead) {
+            <article class="lead-story">
+              @if (lead.imageUrl) {
+                <div class="lead-story__image-wrap">
+                  <a [routerLink]="['/', lead.categorySlug, lead.url]">
+                    <img [src]="lead.imageUrl" [alt]="lead.title" loading="eager" />
+                  </a>
+                  <p
+                    style="
+                      font-size: 10px;
+                      color: var(--gray-mid);
+                      margin-top: 4px;
+                      font-style: italic;
+                      font-family: var(--font-sans);
+                    "
+                  >
+                    FOTO: {{ lead.author }} / Bolivian Daily
+                  </p>
+                </div>
+              }
+              @if (lead.pretitle) {
+                <div class="story__pretitle" style="font-size: 11px; margin-bottom: 4px">{{ lead.pretitle }}</div>
+              }
+              <h1 class="lead-story__title">
+                <a [routerLink]="['/', lead.categorySlug, lead.url]">{{ lead.title }}</a>
+              </h1>
+              <p class="lead-story__excerpt">{{ lead.subtitle }}</p>
+              <p
+                style="
+                  font-family: var(--font-body);
+                  font-size: 14px;
+                  line-height: 1.5;
+                  color: var(--gray-dark);
+                  margin-bottom: 8px;
+                "
+              >
+                {{ lead.enter }}
+              </p>
+              <div class="lead-story__meta">
+                @if (lead.author) {
+                  <span
+                    >Por <span class="lead-story__author">{{ lead.author }}</span></span
+                  >
+                }
+                <span>&bull;</span>
+                <span>{{ lead.publicationDate | timeAgo }}</span>
+              </div>
+            </article>
+          }
+        </div>
 
-    <!-- MODULAR HORIZONTAL ROWS FOR SECTIONS -->
-    @for (cat of homeCategories(); track cat.id) {
-      @if (getCategoryNews(cat.id).length > 0) {
-        <section class="section-row" attr.aria-label="Sección {{ cat.name }}">
+        <!-- RIGHT COLUMN: Recent News -->
+        <div class="top-fold-grid__column top-fold-grid__column--right">
+          <div class="top-fold-grid__section-header">
+            <h2 class="top-fold-grid__section-title">Recientes</h2>
+          </div>
+
+          @for (item of home.recent; track item.id) {
+            <article class="recent-card">
+              @if (item.categoryName) {
+                <div class="recent-card__category">{{ item.categoryName }}</div>
+              }
+              <h3 class="recent-card__title">
+                <a [routerLink]="['/', item.categorySlug, item.url]">{{ item.title }}</a>
+              </h3>
+              <div class="recent-card__meta">
+                {{ item.publicationDate | timeAgo }}
+              </div>
+            </article>
+          }
+        </div>
+      </div>
+
+      <!-- MODULAR HORIZONTAL ROWS FOR SECTIONS -->
+      @for (section of home.sections; track section.categoryId) {
+        <section class="section-row" attr.aria-label="Sección {{ section.categoryName }}">
           <div class="section-row__header">
-            <h2 class="section-row__title">{{ cat.name }}</h2>
-            <a class="section-row__link" [routerLink]="['/', cat.slug]">Ver más &rsaquo;</a>
+            <h2 class="section-row__title">{{ section.categoryName }}</h2>
+            <a class="section-row__link" [routerLink]="['/', section.categorySlug]">Ver más &rsaquo;</a>
           </div>
 
           <div class="section-grid">
             <!-- Left: Big Story for this category -->
             <div class="section-grid__left">
-              @if (getCategoryMainNews(cat.id); as mainNews) {
+              @if (section.main; as mainNews) {
                 <article class="story" style="border-bottom: none; padding-bottom: 0; margin-bottom: 0">
-                  @if (itemImageUrl(mainNews)) {
+                  @if (mainNews.imageUrl) {
                     <a
-                      [routerLink]="['/', mainNews.category?.slug, mainNews.url]"
+                      [routerLink]="['/', mainNews.categorySlug, mainNews.url]"
                       style="margin-bottom: 12px; display: block"
                     >
                       <img
-                        [src]="itemImageUrl(mainNews)"
+                        [src]="mainNews.imageUrl"
                         [alt]="mainNews.title"
                         style="aspect-ratio: 16/10; object-fit: cover"
                       />
@@ -127,7 +135,7 @@
                     <div class="story__pretitle">{{ mainNews.pretitle }}</div>
                   }
                   <h3 class="story__title" style="font-size: 21px; line-height: 1.2">
-                    <a [routerLink]="['/', mainNews.category?.slug, mainNews.url]">{{ mainNews.title }}</a>
+                    <a [routerLink]="['/', mainNews.categorySlug, mainNews.url]">{{ mainNews.title }}</a>
                   </h3>
                   <p class="story__excerpt" style="font-size: 14px">{{ mainNews.subtitle }}</p>
                   <div class="story__meta">
@@ -136,27 +144,28 @@
                         >Por <span class="story__author">{{ mainNews.author }}</span> &middot;
                       </span>
                     }
-                    <span>{{ mainNews.publication_date | timeAgo }}</span>
+                    <span>{{ mainNews.publicationDate | timeAgo }}</span>
                   </div>
                 </article>
               }
             </div>
 
-            <!-- Right: 4 side stories in 2x2 grid, headlines only -->
+            <!-- Right: 8 side stories in 4x2 grid, headlines only -->
             <div class="section-grid__right-cards">
-              @for (side of getCategorySideNews(cat.id); track side.id) {
+              @for (side of section.sides; track side.id) {
                 <article class="story story--text-only">
                   <h4 class="story__title story__title--side">
-                    <a [routerLink]="['/', side.category?.slug, side.url]">{{ side.title }}</a>
+                    <a [routerLink]="['/', side.categorySlug, side.url]">{{ side.title }}</a>
                   </h4>
                   <div class="story__meta">
-                    <span>{{ side.publication_date | timeAgo }}</span>
+                    <span>{{ side.publicationDate | timeAgo }}</span>
                   </div>
                 </article>
               }
             </div>
           </div>
         </section>
+      }
       }
     }
   </div>

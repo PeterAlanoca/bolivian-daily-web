@@ -17,6 +17,7 @@ The API returns bare JSON (no envelope). Real example: `GET http://localhost:300
 4. The store consumes it and exposes readonly signals; the page reads the store.
 5. Test against the local API with `curl` before wiring the UI.
 6. Identifiers in English; never translate the domain (`category`, not `categoria`).
-7. Verify: `npm run lint && npm run build`.
+7. Never invent fields — and never fall back to mock data when the API fails (render loading/error states instead).
+8. Verify: `npm run lint && npm run build`.
 
 Note: only `GET` is used today. When POST/PUT/DELETE are needed, extend `ApiClientService` (`core/services/`) — not each feature.

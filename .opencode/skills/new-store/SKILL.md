@@ -41,4 +41,5 @@ export class <Domain>Store {
 2. The api-service only knows the relative path (`resource = 'v1/...'`) via `ApiClientService`.
 3. Consumers: `private store = inject(XStore); items = this.store.items;` — never `.set()` outside the store.
 4. Identifiers in English (variables, methods, classes); Spanish only in user-visible text.
-5. Verify: `npm run lint && npm run build`.
+5. **NEVER fall back to mock data when the API fails.** On error set `error` and render a visible error/loading state (never fake content). Mock data in `core/data/` is scaffolding only and must not ship as fallback.
+6. Verify: `npm run lint && npm run build`.

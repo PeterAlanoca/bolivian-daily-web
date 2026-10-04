@@ -21,4 +21,5 @@ Angular 19 + standalone + Signals. Read `docs/architecture.md` (rules) and
 4. Alias imports (`@core/`, `@features/`, `@shared/`), cross-feature only via barrel.
 5. Model = real API JSON; map in `*.mapper.ts`, never invent fields.
 6. Identifiers (variables, methods, classes, files) ALWAYS in English; Spanish only in user-visible text and data values.
-7. Reusable skills in `.opencode/skills/` (see each `SKILL.md`).
+7. NEVER use mock data as fallback when the API fails — render loading/error states instead.
+8. Reusable skills in `.opencode/skills/` (see each `SKILL.md`).
