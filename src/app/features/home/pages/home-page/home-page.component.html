@@ -6,13 +6,10 @@
       <div class="top-fold-grid__column top-fold-grid__column--left">
         @for (item of leftColumnNews(); track item.id) {
           <article class="story">
-            @if (item.pretitle) {
-              <div class="story__pretitle">{{ item.pretitle }}</div>
-            }
-            <h3 class="story__title" style="font-size: 15px">
+            <h3 class="story__title" style="font-size: 17px; line-height: 1.3">
               <a [routerLink]="['/', item.category?.slug, item.url]">{{ item.title }}</a>
             </h3>
-            <p class="story__excerpt" style="font-size: 13px">{{ item.subtitle }}</p>
+            <p class="story__excerpt" style="font-size: 14px">{{ item.subtitle }}</p>
             <div class="story__meta">
               @if (item.author) {
                 <span
@@ -78,40 +75,21 @@
         }
       </div>
 
-      <!-- RIGHT COLUMN: Opinion & Editorial Columns -->
+      <!-- RIGHT COLUMN: Recent News -->
       <div class="top-fold-grid__column top-fold-grid__column--right">
-        <div style="border-bottom: 2px solid var(--black); padding-bottom: 6px; margin-bottom: 16px">
-          <h2
-            style="
-              font-family: var(--font-sans);
-              font-size: 11px;
-              font-weight: 800;
-              text-transform: uppercase;
-              letter-spacing: 0.1em;
-              color: var(--black);
-            "
-          >
-            Opinión
-          </h2>
+        <div class="top-fold-grid__section-header">
+          <h2 class="top-fold-grid__section-title">Recientes</h2>
         </div>
 
-        @for (item of opinionNews(); track item.id) {
-          <article class="opinion-card">
-            <div class="opinion-card__author">{{ item.author || 'Editorial' }}</div>
-            <h3 class="opinion-card__title">
-              <a [routerLink]="['/', item.category?.slug, item.url]">«{{ item.title }}»</a>
+        @for (item of recentNews(); track item.id) {
+          <article class="recent-card">
+            @if (item.category?.name) {
+              <div class="recent-card__category">{{ item.category?.name }}</div>
+            }
+            <h3 class="recent-card__title">
+              <a [routerLink]="['/', item.category?.slug, item.url]">{{ item.title }}</a>
             </h3>
-            <div
-              style="
-                font-family: var(--font-sans);
-                font-size: 9px;
-                color: var(--gray-light);
-                font-weight: 700;
-                text-transform: uppercase;
-                letter-spacing: 0.05em;
-                margin-top: 4px;
-              "
-            >
+            <div class="recent-card__meta">
               {{ item.publication_date | timeAgo }}
             </div>
           </article>
@@ -120,7 +98,7 @@
     </div>
 
     <!-- MODULAR HORIZONTAL ROWS FOR SECTIONS -->
-    @for (cat of activeCategories(); track cat.id) {
+    @for (cat of homeCategories(); track cat.id) {
       @if (getCategoryNews(cat.id).length > 0) {
         <section class="section-row" attr.aria-label="Sección {{ cat.name }}">
           <div class="section-row__header">
@@ -148,10 +126,10 @@
                   @if (mainNews.pretitle) {
                     <div class="story__pretitle">{{ mainNews.pretitle }}</div>
                   }
-                  <h3 class="story__title" style="font-size: 20px">
+                  <h3 class="story__title" style="font-size: 21px; line-height: 1.2">
                     <a [routerLink]="['/', mainNews.category?.slug, mainNews.url]">{{ mainNews.title }}</a>
                   </h3>
-                  <p class="story__excerpt" style="font-size: 13px">{{ mainNews.subtitle }}</p>
+                  <p class="story__excerpt" style="font-size: 14px">{{ mainNews.subtitle }}</p>
                   <div class="story__meta">
                     @if (mainNews.author) {
                       <span
@@ -164,26 +142,14 @@
               }
             </div>
 
-            <!-- Right: 3 side stories in grid -->
+            <!-- Right: 4 side stories in 2x2 grid, headlines only -->
             <div class="section-grid__right-cards">
               @for (side of getCategorySideNews(cat.id); track side.id) {
-                <article class="story" style="border-bottom: none; padding-bottom: 0; margin-bottom: 0">
-                  @if (itemImageUrl(side)) {
-                    <a [routerLink]="['/', side.category?.slug, side.url]" style="margin-bottom: 10px; display: block">
-                      <img
-                        [src]="itemImageUrl(side)"
-                        [alt]="side.title"
-                        style="aspect-ratio: 16/10; object-fit: cover; border: 1px solid var(--gray-border)"
-                      />
-                    </a>
-                  }
-                  @if (side.pretitle) {
-                    <div class="story__pretitle">{{ side.pretitle }}</div>
-                  }
-                  <h4 class="story__title" style="font-size: 14px; font-weight: 700">
+                <article class="story story--text-only">
+                  <h4 class="story__title story__title--side">
                     <a [routerLink]="['/', side.category?.slug, side.url]">{{ side.title }}</a>
                   </h4>
-                  <div class="story__meta" style="margin-top: 4px">
+                  <div class="story__meta">
                     <span>{{ side.publication_date | timeAgo }}</span>
                   </div>
                 </article>

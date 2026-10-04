@@ -29,7 +29,7 @@
   background: none;
   border: none;
   cursor: pointer;
-  display: flex;
+  display: none;
   flex-direction: column;
   justify-content: space-between;
   width: 18px;
@@ -242,6 +242,16 @@
 
 .mobile-menu__item a.active {
   color: var(--gray-mid);
+}
+
+@media (max-width: 1024px) {
+  .masthead__hamburger-btn {
+    display: flex;
+  }
+
+  .main-nav {
+    display: none;
+  }
 }
 
 @media (max-width: 480px) {
