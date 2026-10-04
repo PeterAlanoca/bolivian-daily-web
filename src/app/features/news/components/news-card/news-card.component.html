@@ -1,0 +1,109 @@
+<!-- FEATURED CARD -->
+@if (type() === 'featured') {
+  <article class="featured-card">
+    @if (imageUrl()) {
+      <a [routerLink]="['/', news().category?.slug, news().url]">
+        <img class="featured-card__image" [src]="imageUrl()" [alt]="news().title" loading="lazy" />
+      </a>
+    }
+    @if (news().category) {
+      <div class="featured-card__cat">
+        {{ news().category?.name }}
+      </div>
+    }
+    <h2 class="featured-card__title">
+      <a [routerLink]="['/', news().category?.slug, news().url]">{{ news().title }}</a>
+    </h2>
+    @if (news().subtitle) {
+      <p class="featured-card__subtitle">
+        {{ news().subtitle | truncate: 120 }}
+      </p>
+    }
+    <div class="featured-card__meta">
+      @if (news().author) {
+        <span>{{ news().author }} &middot; </span>
+      }
+      <span>{{ news().publication_date | timeAgo }}</span>
+    </div>
+  </article>
+}
+
+<!-- CATEGORY MAIN CARD -->
+@if (type() === 'category-main') {
+  <article class="category-main">
+    @if (imageUrl()) {
+      <a [routerLink]="['/', news().category?.slug, news().url]">
+        <img class="category-main__image" [src]="imageUrl()" [alt]="news().title" loading="lazy" />
+      </a>
+    }
+    @if (news().pretitle) {
+      <div class="category-main__pretitle">
+        {{ news().pretitle }}
+      </div>
+    }
+    <h2 class="category-main__title">
+      <a [routerLink]="['/', news().category?.slug, news().url]">{{ news().title }}</a>
+    </h2>
+    @if (news().subtitle) {
+      <p class="category-main__subtitle">
+        {{ news().subtitle | truncate: 140 }}
+      </p>
+    }
+    <div class="category-main__meta">
+      @if (news().author) {
+        <span>{{ news().author }} &middot; </span>
+      }
+      <span>{{ news().publication_date | timeAgo }}</span>
+    </div>
+  </article>
+}
+
+<!-- LIST ITEM CARD (HEADLINE ONLY) -->
+@if (type() === 'list-item') {
+  <article class="category-list__item">
+    @if (news().pretitle) {
+      <div class="category-list__pretitle">
+        {{ news().pretitle }}
+      </div>
+    }
+    <h3 class="category-list__title">
+      <a [routerLink]="['/', news().category?.slug, news().url]">{{ news().title }}</a>
+    </h3>
+    <div class="category-list__meta">
+      @if (news().author) {
+        <span>{{ news().author }} &middot; </span>
+      }
+      <span>{{ news().publication_date | timeAgo }}</span>
+    </div>
+  </article>
+}
+
+<!-- STANDARD GRID CARD -->
+@if (type() === 'grid-card') {
+  <article class="news-card">
+    @if (imageUrl()) {
+      <a [routerLink]="['/', news().category?.slug, news().url]">
+        <img class="news-card__image" [src]="imageUrl()" [alt]="news().title" loading="lazy" />
+      </a>
+    }
+    @if (news().pretitle) {
+      <div class="news-card__pretitle">
+        {{ news().pretitle }}
+      </div>
+    }
+    <h2 class="news-card__title">
+      <a [routerLink]="['/', news().category?.slug, news().url]">{{ news().title }}</a>
+    </h2>
+    @if (news().subtitle) {
+      <p class="news-card__subtitle">
+        {{ news().subtitle | truncate: 100 }}
+      </p>
+    }
+    <div class="news-card__meta">
+      @if (news().author) {
+        <span>{{ news().author }} &middot; </span>
+      }
+      <span>{{ news().publication_date | timeAgo }}</span>
+    </div>
+  </article>
+}

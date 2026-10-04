@@ -1,0 +1,95 @@
+/* Sidebar + most-read list. Extracted from global styles.css
+   (Fase 1: duplicated there on purpose). */
+.sidebar {
+  position: sticky;
+  top: 120px;
+}
+
+.sidebar__block {
+  border-top: 2px solid var(--black);
+  padding-top: 12px;
+  margin-bottom: 32px;
+}
+
+.sidebar__title {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--black);
+  margin-bottom: 16px;
+}
+
+.sidebar__ad {
+  text-align: center;
+  font-family: var(--font-sans);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--gray-light);
+}
+
+.sidebar__ad-square {
+  width: 100%;
+  aspect-ratio: 300/250;
+  background: var(--gray-bg);
+  border: 1px dashed var(--gray-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 8px;
+}
+
+.most-read__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.most-read__item {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--gray-border);
+}
+
+.most-read__item:last-child {
+  border-bottom: none;
+}
+
+.most-read__num {
+  font-family: var(--font-serif);
+  font-size: 28px;
+  font-weight: 900;
+  color: var(--gray-border);
+  line-height: 1;
+  flex-shrink: 0;
+  min-width: 28px;
+}
+
+.most-read__text {
+  min-width: 0;
+}
+
+.most-read__title {
+  font-family: var(--font-serif);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--black);
+}
+
+.most-read__title a:hover {
+  text-decoration: underline;
+}
+
+.most-read__meta {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  color: var(--gray-light);
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-top: 4px;
+}

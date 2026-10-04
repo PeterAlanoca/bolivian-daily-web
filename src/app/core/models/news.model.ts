@@ -13,12 +13,9 @@ export interface Source {
   state: string;
 }
 
-export interface Category {
-  id: number;
-  name: string;
-  url: string;
-  state: string;
-}
+import type { Category } from './category.model';
+
+export type { Category };
 
 export interface Multimedia {
   id: number;

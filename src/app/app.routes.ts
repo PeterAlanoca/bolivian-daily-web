@@ -1,11 +1,11 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from './pages/home/home.component';
-import { CategoryComponent } from './pages/category/category.component';
-import { ArticleComponent } from './pages/article/article.component';
+import { HomePageComponent } from './features/home/pages/home-page/home-page.component';
+import { CategoryListPageComponent } from './features/categories/pages/category-list-page/category-list-page.component';
+import { ArticleDetailPageComponent } from './features/articles/pages/article-detail-page/article-detail-page.component';
 
 export const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: ':category', component: CategoryComponent },
-  { path: ':category/:slug', component: ArticleComponent },
-  { path: '**', redirectTo: '' }
+  { path: '', component: HomePageComponent },
+  { path: ':category', component: CategoryListPageComponent },
+  { path: ':category/:slug', component: ArticleDetailPageComponent },
+  { path: '**', redirectTo: '' },
 ];

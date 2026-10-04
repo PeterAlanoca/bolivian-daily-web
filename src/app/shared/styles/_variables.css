@@ -1,0 +1,17 @@
+/* Design tokens globales (colores, tipografías, transición). */
+:root {
+  --black: #111111;
+  --black-soft: #222222;
+  --gray-dark: #333333;
+  --gray-mid: #666666;
+  --gray-light: #999999;
+  --gray-border: #d5d5d5;
+  --gray-bg: #f9f9f9;
+  --white: #ffffff;
+  --yellow-accent: #ffc400; /* Washington Post Subscribe yellow button */
+
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-body: 'Source Serif 4', Georgia, serif;
+  --font-sans: 'Inter', Arial, sans-serif;
+  --transition: all 0.2s ease-in-out;
+}

@@ -2,7 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
   name: 'timeAgo',
-  standalone: true
+  standalone: true,
 })
 export class TimeAgoPipe implements PipeTransform {
   transform(value: string | Date | null | undefined): string {
@@ -30,7 +30,7 @@ export class TimeAgoPipe implements PipeTransform {
       return date.toLocaleDateString('es-ES', {
         day: 'numeric',
         month: 'short',
-        year: 'numeric'
+        year: 'numeric',
       });
     }
   }

@@ -1,0 +1,96 @@
+/* Footer. Extracted from global styles.css
+   (Fase 1: duplicated there on purpose). */
+.footer {
+  background: var(--black);
+  color: var(--white);
+  padding: 48px 0 24px;
+  margin-top: 48px;
+}
+
+.footer__logo {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.footer__logo-text {
+  font-family: var(--font-serif);
+  font-size: 32px;
+  font-weight: 900;
+  color: var(--white);
+  letter-spacing: -0.5px;
+}
+
+.footer__logo-motto {
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gray-light);
+  margin-top: 4px;
+  font-weight: 600;
+}
+
+.footer__grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 32px;
+  margin-bottom: 40px;
+}
+
+.footer__col-title {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--gray-light);
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--gray-dark);
+  padding-bottom: 8px;
+}
+
+.footer__col-list {
+  list-style: none;
+}
+
+.footer__col-list li {
+  margin-bottom: 8px;
+}
+
+.footer__col-list a {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  color: #cccccc;
+  transition: var(--transition);
+}
+
+.footer__col-list a:hover {
+  color: var(--white);
+  text-decoration: underline;
+}
+
+.footer__bottom {
+  border-top: 1px solid var(--gray-dark);
+  padding-top: 20px;
+  text-align: center;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  color: var(--gray-mid);
+}
+
+@media (max-width: 1024px) {
+  .footer__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .footer__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .footer__grid {
+    grid-template-columns: 1fr;
+  }
+}

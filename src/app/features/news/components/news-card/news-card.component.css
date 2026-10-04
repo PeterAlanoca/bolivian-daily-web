@@ -1,0 +1,56 @@
+/* News grid card. Extracted from global styles.css
+   (Fase 1: duplicated there on purpose). */
+.news-card {
+  border-top: 1px solid var(--gray-border);
+  padding-top: 16px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.news-card__image {
+  width: 100%;
+  aspect-ratio: 16/10;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.news-card__pretitle {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--gray-dark);
+  margin-bottom: 4px;
+}
+
+.news-card__title {
+  font-family: var(--font-serif);
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 6px;
+}
+
+.news-card__title a:hover {
+  text-decoration: underline;
+}
+
+.news-card__subtitle {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--gray-dark);
+  line-height: 1.4;
+  margin-bottom: 12px;
+  flex-grow: 1;
+}
+
+.news-card__meta {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  color: var(--gray-mid);
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-top: auto;
+}
