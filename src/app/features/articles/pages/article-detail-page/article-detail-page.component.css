@@ -3,17 +3,9 @@
   padding: 24px 0 64px;
 }
 
-/* Breadcrumb */
+/* Breadcrumb: hidden on desktop, visible ONLY when hamburger menu is active (<= 1024px) */
 .breadcrumb {
-  font-family: var(--font-sans);
-  font-size: 11px;
-  color: var(--gray-light);
-  letter-spacing: 0.05em;
-  margin-bottom: 28px;
-  text-transform: uppercase;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  display: none !important;
 }
 
 .breadcrumb__link {
@@ -356,6 +348,18 @@
 
 /* Responsive */
 @media (max-width: 1024px) {
+  .breadcrumb {
+    display: flex !important;
+    font-family: var(--font-sans);
+    font-size: 11px;
+    color: var(--gray-light);
+    letter-spacing: 0.05em;
+    margin-bottom: 24px;
+    text-transform: uppercase;
+    align-items: center;
+    gap: 8px;
+  }
+
   .article-view-layout {
     grid-template-columns: 1fr;
   }

@@ -47,3 +47,14 @@ img {
   margin: 0 auto;
   padding: 0 24px;
 }
+
+/* Breadcrumb: hidden on desktop, visible ONLY when hamburger menu is active (<= 1024px) */
+.breadcrumb {
+  display: none !important;
+}
+
+@media (max-width: 1024px) {
+  .breadcrumb {
+    display: flex !important;
+  }
+}
