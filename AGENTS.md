@@ -22,4 +22,16 @@ Angular 19 + standalone + Signals. Read `docs/architecture.md` (rules) and
 5. Model = real API JSON; map in `*.mapper.ts`, never invent fields.
 6. Identifiers (variables, methods, classes, files) ALWAYS in English; Spanish only in user-visible text and data values.
 7. NEVER use mock data as fallback when the API fails — render loading/error states instead.
-8. Reusable skills in `.agents/skills/` (see each `SKILL.md`).
+8. Reusable skills in `.agents/skills/` (Antigravity) and `.opencode/skills/` (OpenCode) (see each `SKILL.md`).
+
+## Agent Skills
+
+Modular skills live in `.agents/skills/` (Antigravity) and `.opencode/skills/` (OpenCode), and are loaded per task:
+
+| Skill | When to use |
+|---|---|
+| `new-endpoint` | Procedure for consuming and wiring backend REST endpoints in Angular (DTO -> Mapper -> ApiService -> Store) |
+| `new-feature` | Scaffolding domain features with barrel exports and clean layer boundaries |
+| `new-page` | Scaffolding routed smart page components with separate template and CSS |
+| `new-store` | Managing state with readonly Signals, ApiService, and mappers (no mock fallback) |
+
