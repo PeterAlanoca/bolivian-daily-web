@@ -121,7 +121,10 @@
 
           <!-- Right side: Sidebar (with Related news: other news from this category) -->
           <div class="article-view-layout__sidebar">
-            <app-sidebar [relatedNews]="categorySidebarNews()"></app-sidebar>
+            <app-sidebar
+              [relatedNews]="categorySidebarNews()"
+              [excludedIds]="pageArticleIds()"
+            ></app-sidebar>
           </div>
         </div>
       } @else {

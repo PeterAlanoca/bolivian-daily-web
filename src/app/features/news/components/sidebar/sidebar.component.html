@@ -3,33 +3,30 @@
   @if (hasRelated()) {
     <div class="sidebar__block">
       <div class="sidebar__title">Más de {{ categoryName() }}</div>
-      <ul class="most-read__list">
+      <div class="sidebar-related-list">
         @for (item of relatedNews(); track item.id) {
-          <li class="most-read__item" style="display: block">
+          <article class="sidebar-story">
             @if (itemImageUrl(item)) {
-              <a [routerLink]="['/', item.category?.slug, item.url]">
+              <a [routerLink]="['/', item.category?.slug, item.url]" class="sidebar-story__image-wrap">
                 <img
                   [src]="itemImageUrl(item)"
                   [alt]="item.title"
-                  style="
-                    width: 100%;
-                    aspect-ratio: 16/9;
-                    object-fit: cover;
-                    margin-bottom: 10px;
-                    border: 1px solid var(--gray-border);
-                  "
+                  class="sidebar-story__image"
+                  loading="lazy"
                 />
               </a>
             }
-            <h4 class="most-read__title" style="font-size: 16px">
-              <a [routerLink]="['/', item.category?.slug, item.url]">{{ item.title }}</a>
-            </h4>
-            <div class="most-read__meta" style="margin-top: 8px">
-              <span>{{ item.publication_date | timeAgo }}</span>
+            <div class="sidebar-story__body">
+              <h4 class="sidebar-story__title">
+                <a [routerLink]="['/', item.category?.slug, item.url]">{{ item.title }}</a>
+              </h4>
+              <div class="sidebar-story__meta">
+                <span>{{ item.publication_date | timeAgo }}</span>
+              </div>
             </div>
-          </li>
+          </article>
         }
-      </ul>
+      </div>
     </div>
   }
 

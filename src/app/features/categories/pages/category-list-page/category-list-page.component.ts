@@ -56,13 +56,33 @@ export class CategoryListPageComponent {
     return hero && hero.multimedia && hero.multimedia.length > 0 ? hero.multimedia[0].url : '';
   });
 
-  // Grid news are the rest (skipping the first item)
-  readonly categoryGridNews = computed(() => {
-    return this.categoryNews().slice(1);
+  // Sidebar takes up to 3 articles from the end of the list (the older articles of this section)
+  readonly categorySidebarNews = computed(() => {
+    const news = this.categoryNews();
+    if (news.length >= 6) {
+      return news.slice(-3);
+    }
+    if (news.length === 5) {
+      return news.slice(-2);
+    }
+    if (news.length === 4) {
+      return news.slice(-1);
+    }
+    return [];
   });
 
-  // News for sidebar related block
-  readonly categorySidebarNews = computed(() => {
-    return this.categoryNews().slice(0, 3);
+  // Grid news maintains a continuous chronological stream following the hero, up until the sidebar items
+  readonly categoryGridNews = computed(() => {
+    const news = this.categoryNews();
+    const sidebarCount = this.categorySidebarNews().length;
+    if (sidebarCount === 0) {
+      return news.slice(1);
+    }
+    return news.slice(1, news.length - sidebarCount);
+  });
+
+  // IDs of all category articles rendered on the page, to prevent duplicates in the sidebar's recent block
+  readonly pageArticleIds = computed(() => {
+    return this.categoryNews().map((item) => item.id);
   });
 }

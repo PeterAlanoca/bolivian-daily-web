@@ -17,8 +17,18 @@ export class SidebarComponent {
   // Input for related news
   readonly relatedNews = input<News[]>([]);
 
-  // Recent news from the dedicated recent articles store
-  readonly recentNews = this.recentStore.articles;
+  // Input for article IDs to exclude (e.g., hero or grid articles on the parent page)
+  readonly excludedIds = input<number[]>([]);
+
+  // Recent news from the dedicated store, excluding any articles already visible on the screen
+  readonly recentNews = computed(() => {
+    const exclude = new Set([
+      ...this.excludedIds(),
+      ...this.relatedNews().map((item) => item.id),
+    ]);
+    return this.recentStore.articles().filter((item) => !exclude.has(item.id));
+  });
+
   readonly loading = this.recentStore.loading;
   readonly error = this.recentStore.error;
 
