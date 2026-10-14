@@ -33,33 +33,42 @@
     </div>
   }
 
-  <!-- MOST READ SECTION -->
+  <!-- RECENT NEWS SECTION -->
   <div class="sidebar__block">
-    <div class="sidebar__title">Más leídas</div>
-    <ul class="most-read__list">
-      @for (item of mostRead(); track item.id; let i = $index) {
-        <li class="most-read__item">
-          <span class="most-read__num">{{ i + 1 }}</span>
-          <div class="most-read__text">
-            <div class="most-read__title">
-              <a [routerLink]="['/', item.category?.slug, item.url]">{{ item.title }}</a>
-            </div>
-            <div class="most-read__meta">
-              <span>{{ item.publication_date | timeAgo }}</span>
-            </div>
-          </div>
-        </li>
-      }
-    </ul>
-  </div>
+    <div class="sidebar__title">Recientes</div>
 
-  <!-- ADVERTISING PLACEHOLDER -->
-  <div class="sidebar__block" style="border-top: none; padding-top: 0">
-    <div class="sidebar__ad">
-      <span>Publicidad</span>
-      <div class="sidebar__ad-square">
-        <span style="font-size: 11px; color: #b5b5b5">300 x 250 AD PLACEHOLDER</span>
+    @if (loading()) {
+      <div class="recent-skeleton">
+        <div class="skeleton-line skeleton-line--badge"></div>
+        <div class="skeleton-line skeleton-line--title"></div>
+        <div class="skeleton-line skeleton-line--meta"></div>
       </div>
-    </div>
+      <div class="recent-skeleton">
+        <div class="skeleton-line skeleton-line--badge"></div>
+        <div class="skeleton-line skeleton-line--title"></div>
+        <div class="skeleton-line skeleton-line--meta"></div>
+      </div>
+    } @else if (error()) {
+      <div class="recent-error">
+        <p>{{ error() }}</p>
+        <button type="button" class="recent-retry-btn" (click)="retry()">Reintentar</button>
+      </div>
+    } @else if (recentNews().length > 0) {
+      <div class="recent-list">
+        @for (item of recentNews(); track item.id) {
+          <article class="recent-card">
+            @if (item.categoryName) {
+              <div class="recent-card__category">{{ item.categoryName }}</div>
+            }
+            <h4 class="recent-card__title">
+              <a [routerLink]="['/', item.categorySlug, item.url]">{{ item.title }}</a>
+            </h4>
+            <div class="recent-card__meta">
+              {{ item.publicationDate | timeAgo }}
+            </div>
+          </article>
+        }
+      </div>
+    }
   </div>
 </aside>

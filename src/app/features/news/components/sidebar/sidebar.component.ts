@@ -1,8 +1,8 @@
-import { Component, input, computed } from '@angular/core';
+import { Component, input, computed, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { News } from '../../../../core/models/news.model';
-import { MOCK_MOST_READ } from '../../../../core/data/mock-data';
-import { TimeAgoPipe } from '../../../../shared/pipes/time-ago.pipe';
+import { News } from '@core/models/news.model';
+import { TimeAgoPipe } from '@shared/pipes/time-ago.pipe';
+import { RecentArticlesStore } from '../../data-access/store/recent-articles.store';
 
 @Component({
   selector: 'app-sidebar',
@@ -12,11 +12,15 @@ import { TimeAgoPipe } from '../../../../shared/pipes/time-ago.pipe';
   styleUrl: './sidebar.component.css',
 })
 export class SidebarComponent {
+  private recentStore = inject(RecentArticlesStore);
+
   // Input for related news
   readonly relatedNews = input<News[]>([]);
 
-  // Local state signals
-  mostRead = MOCK_MOST_READ;
+  // Recent news from the dedicated recent articles store
+  readonly recentNews = this.recentStore.articles;
+  readonly loading = this.recentStore.loading;
+  readonly error = this.recentStore.error;
 
   // Computed helper signals
   readonly hasRelated = computed(() => this.relatedNews() && this.relatedNews().length > 0);
@@ -29,7 +33,13 @@ export class SidebarComponent {
     return 'la sección';
   });
 
+  retry(): void {
+    this.recentStore.load();
+  }
+
   itemImageUrl(item: News): string {
     return item.multimedia && item.multimedia.length > 0 ? item.multimedia[0].url : '';
   }
 }
+
+
