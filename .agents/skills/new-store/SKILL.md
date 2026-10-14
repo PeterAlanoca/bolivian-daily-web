@@ -1,11 +1,14 @@
 ---
 name: new-store
-description: Create global or feature state with readonly signals (store + api-service + dto + mapper + model)
+description: >-
+  Guides creating global or feature state with readonly Angular Signals (Store + ApiService + DTO + Mapper + Model)
+  without mock fallbacks in the BolivianDaily Angular web application. Use when creating or updating state stores in bolivian-daily-web.
 ---
 
 # Create a store with signals
 
-Live reference: `src/app/core/state/` (global, e.g. `CategoryStore`) and
+Live reference: `src/app/core/state/` (global, e.g. `CategoryStore`),
+`src/app/features/categories/data-access/` (feature store), and
 `docs/architecture.md` (State section).
 
 ## Where it lives

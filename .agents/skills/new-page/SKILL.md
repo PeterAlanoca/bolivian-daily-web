@@ -1,6 +1,8 @@
 ---
 name: new-page
-description: Scaffold a routed smart page with separate .ts/.html/.css and register it in app.routes.ts
+description: >-
+  Guides scaffolding a routed smart page component with separate .ts/.html/.css and registering it in app.routes.ts
+  in the BolivianDaily Angular web application. Use when creating a new view or page in bolivian-daily-web.
 ---
 
 # Create a page

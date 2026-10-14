@@ -1,6 +1,8 @@
 ---
 name: new-endpoint
-description: Wire up a new API GET endpoint (dto + mapper + method in the api-service + store)
+description: >-
+  Guides connecting and wiring a new backend REST endpoint in the BolivianDaily Angular web frontend
+  (DTO -> Mapper -> ApiService -> Store). Use when consuming a new API endpoint in bolivian-daily-web.
 ---
 
 # Consume a new endpoint

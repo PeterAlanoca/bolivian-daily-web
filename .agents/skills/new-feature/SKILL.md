@@ -1,6 +1,9 @@
 ---
 name: new-feature
-description: Scaffold a complete feature (pages, components, models, data-access) following the project architecture
+description: >-
+  Guides scaffolding a complete domain feature in the BolivianDaily Angular web frontend
+  (barrel index.ts, models, data-access with dtos/mappers/services/store, pages, and components).
+  Use when creating a new feature module in bolivian-daily-web.
 ---
 
 # Create a feature

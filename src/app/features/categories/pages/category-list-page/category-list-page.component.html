@@ -1,120 +1,135 @@
 <div class="site-main">
   <div class="container">
-    <!-- Category header -->
-    @if (activeCategory()) {
-      <div class="cat-page-header">
-        <h1 class="cat-page-header__name">{{ activeCategory()?.name }}</h1>
+    @if (loading()) {
+      <div class="cat-state">
+        <p>Cargando noticias de la sección…</p>
       </div>
-    }
-
-    @if (categoryNews().length > 0) {
-      <!-- Hero of the category (first article) -->
-      @if (categoryHeroNews()) {
-        <div class="cat-page-hero">
-          @if (heroImageUrl()) {
-            <div>
-              <a [routerLink]="['/', activeCategory()?.slug, categoryHeroNews()?.url]">
-                <img
-                  class="cat-page-hero__image"
-                  [src]="heroImageUrl()"
-                  [alt]="categoryHeroNews()?.title"
-                  loading="eager"
-                />
-              </a>
-            </div>
-          }
-
-          <div style="display: flex; flex-direction: column; justify-content: flex-start">
-            @if (categoryHeroNews()?.pretitle) {
-              <div class="hero__pretitle" style="margin-bottom: 8px">
-                {{ categoryHeroNews()?.pretitle }}
-              </div>
-            }
-            <h2 class="hero__title" style="font-size: clamp(24px, 3vw, 38px); margin-bottom: 12px">
-              <a [routerLink]="['/', activeCategory()?.slug, categoryHeroNews()?.url]">{{
-                categoryHeroNews()?.title
-              }}</a>
-            </h2>
-            @if (categoryHeroNews()?.subtitle) {
-              <p class="hero__subtitle" style="font-size: 16px; margin-bottom: 12px">
-                {{ categoryHeroNews()?.subtitle }}
-              </p>
-            }
-            @if (categoryHeroNews()?.enter) {
-              <p
-                style="
-                  font-family: var(--font-body);
-                  font-size: 15px;
-                  color: var(--gray-dark);
-                  line-height: 1.6;
-                  margin-bottom: 16px;
-                "
-              >
-                {{ categoryHeroNews()?.enter }}
-              </p>
-            }
-            <div class="hero__meta" style="margin-top: auto">
-              @if (categoryHeroNews()?.author) {
-                <span class="hero__author">{{ categoryHeroNews()?.author }}</span>
-              }
-              <span>{{ categoryHeroNews()?.publication_date | timeAgo }}</span>
-            </div>
-          </div>
+    } @else if (error()) {
+      <div class="cat-state cat-state--error">
+        <p>{{ error() }}</p>
+        <button class="cat-state__retry" (click)="retry()">Reintentar</button>
+      </div>
+    } @else {
+      <!-- Category header -->
+      @if (activeCategory(); as cat) {
+        <div class="cat-page-header">
+          <h1 class="cat-page-header__name">{{ cat.name }}</h1>
         </div>
       }
 
-      <!-- Section header for the grid -->
-      <div class="section-header" style="margin-top: 32px">
-        <span class="section-header__name">Todas las noticias de {{ activeCategory()?.name }}</span>
-      </div>
+      @if (categoryNews().length > 0) {
+        <!-- Hero of the category (first article) -->
+        @if (categoryHeroNews(); as hero) {
+          <div class="cat-page-hero">
+            @if (heroImageUrl()) {
+              <div>
+                <a [routerLink]="['/', activeCategory()?.slug, hero.url]">
+                  <img
+                    class="cat-page-hero__image"
+                    [src]="heroImageUrl()"
+                    [alt]="hero.title"
+                    loading="eager"
+                  />
+                </a>
+              </div>
+            }
 
-      <!-- News grid + Sidebar Layout -->
-      <div class="article-view-layout" style="margin-top: 0">
-        <!-- Left side: Grid (skip the first one already shown as hero) -->
-        <div class="article-view-layout__main">
-          @if (categoryGridNews().length > 0) {
-            <div class="cat-news-grid">
-              @for (item of categoryGridNews(); track item.id) {
-                <app-news-card [news]="item" type="grid-card"></app-news-card>
+            <div style="display: flex; flex-direction: column; justify-content: flex-start">
+              @if (hero.pretitle) {
+                <div class="hero__pretitle" style="margin-bottom: 8px">
+                  {{ hero.pretitle }}
+                </div>
               }
+              <h2 class="hero__title" style="font-size: clamp(24px, 3vw, 38px); margin-bottom: 12px">
+                <a [routerLink]="['/', activeCategory()?.slug, hero.url]">{{ hero.title }}</a>
+              </h2>
+              @if (hero.subtitle) {
+                <p class="hero__subtitle" style="font-size: 16px; margin-bottom: 12px">
+                  {{ hero.subtitle }}
+                </p>
+              }
+              @if (hero.enter) {
+                <p
+                  style="
+                    font-family: var(--font-body);
+                    font-size: 15px;
+                    color: var(--gray-dark);
+                    line-height: 1.6;
+                    margin-bottom: 16px;
+                  "
+                >
+                  {{ hero.enter }}
+                </p>
+              }
+              <div class="hero__meta" style="margin-top: auto">
+                @if (hero.author) {
+                  <span class="hero__author">{{ hero.author }}</span>
+                }
+                <span>{{ hero.publication_date | timeAgo }}</span>
+              </div>
             </div>
-          } @else {
-            <p
-              style="
-                color: var(--gray-light);
-                font-family: var(--font-sans);
-                font-size: 14px;
-                text-align: center;
-                padding: 24px 0;
-              "
-            >
-              No hay más noticias disponibles en esta categoría.
-            </p>
-          }
+          </div>
+        }
 
-          <!-- Pagination (Visual-only mockup) -->
-          @if (categoryNews().length > 1) {
-            <div class="pagination-wrap">
-              <ul class="pagination">
-                <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
-                <li class="page-item active"><span class="page-link">1</span></li>
-                <li class="page-item"><span class="page-link">2</span></li>
-                <li class="page-item"><span class="page-link">&raquo;</span></li>
-              </ul>
-            </div>
-          }
+        <!-- Section header for the grid -->
+        <div class="section-header" style="margin-top: 32px">
+          <span class="section-header__name">Todas las noticias de {{ activeCategory()?.name }}</span>
         </div>
 
-        <!-- Right side: Sidebar (with Related news: we can pass other news from this category) -->
-        <div class="article-view-layout__sidebar">
-          <app-sidebar [relatedNews]="categorySidebarNews()"></app-sidebar>
+        <!-- News grid + Sidebar Layout -->
+        <div class="article-view-layout" style="margin-top: 0">
+          <!-- Left side: Grid (skip the first one already shown as hero) -->
+          <div class="article-view-layout__main">
+            @if (categoryGridNews().length > 0) {
+              <div class="cat-news-grid">
+                @for (item of categoryGridNews(); track item.id) {
+                  <app-news-card [news]="item" type="grid-card"></app-news-card>
+                }
+              </div>
+            } @else {
+              <p
+                style="
+                  color: var(--gray-light);
+                  font-family: var(--font-sans);
+                  font-size: 14px;
+                  text-align: center;
+                  padding: 24px 0;
+                "
+              >
+                No hay más noticias disponibles en esta categoría.
+              </p>
+            }
+
+            <!-- Load more cursor pagination -->
+            @if (nextCursor()) {
+              <div class="pagination-wrap">
+                <button
+                  type="button"
+                  class="btn-load-more"
+                  [disabled]="loadingMore()"
+                  (click)="loadMore()"
+                >
+                  @if (loadingMore()) {
+                    Cargando más…
+                  } @else {
+                    Cargar más noticias &darr;
+                  }
+                </button>
+              </div>
+            }
+          </div>
+
+          <!-- Right side: Sidebar (with Related news: other news from this category) -->
+          <div class="article-view-layout__sidebar">
+            <app-sidebar [relatedNews]="categorySidebarNews()"></app-sidebar>
+          </div>
         </div>
-      </div>
-    } @else {
-      <div style="text-align: center; padding: 80px 0; font-family: var(--font-sans); color: var(--gray-light)">
-        <p style="font-size: 24px; margin-bottom: 8px">No hay noticias todavía en {{ activeCategory()?.name }}</p>
-        <p>Vuelve pronto para encontrar contenido en esta sección.</p>
-      </div>
+      } @else {
+        <div class="cat-empty-state">
+          <p class="cat-empty-state__title">No hay noticias todavía en {{ activeCategory()?.name }}</p>
+          <p>Vuelve pronto para encontrar contenido en esta sección.</p>
+        </div>
+      }
     }
   </div>
 </div>
