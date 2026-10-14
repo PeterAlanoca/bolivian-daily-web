@@ -1,4 +1,5 @@
 import { Category, News } from '@core/models/news.model';
+import { formatArticleSlug } from '@core/utils/slug.utils';
 import {
   CategoryApiDto,
   CategoryArticleItemApiDto,
@@ -23,16 +24,17 @@ export function mapCategoryArticleItemDtoToNews(
   dto: CategoryArticleItemApiDto,
   category: Category,
 ): News {
+  const formattedSlug = formatArticleSlug(dto.id, dto.url);
   return {
     id: dto.id,
     user_id: 1,
     category_id: category.id,
     source_id: 1,
     intranet_id: dto.intranetId ?? undefined,
-    url: dto.url,
+    url: formattedSlug,
     pretitle: dto.pretitle ?? undefined,
     title: dto.title,
-    path: `${category.slug}/${dto.url}`,
+    path: `${category.slug}/${formattedSlug}`,
     subtitle: dto.subtitle ?? undefined,
     enter: dto.lead ?? undefined,
     body: '',

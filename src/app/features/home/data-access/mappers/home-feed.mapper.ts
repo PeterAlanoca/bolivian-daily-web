@@ -1,3 +1,4 @@
+import { formatArticleSlug } from '@core/utils/slug.utils';
 import {
   HomeArticle,
   HomeFeed,
@@ -14,7 +15,7 @@ import {
 export function mapHomeFeedArticleDtoToModel(dto: HomeFeedArticleApiDto): HomeArticle {
   return {
     id: dto.id,
-    url: dto.url,
+    url: formatArticleSlug(dto.id, dto.url),
     pretitle: dto.pretitle,
     title: dto.title,
     subtitle: dto.subtitle,
@@ -30,7 +31,7 @@ export function mapHomeFeedArticleDtoToModel(dto: HomeFeedArticleApiDto): HomeAr
 export function mapHomeFeedSideDtoToModel(dto: HomeFeedSideApiDto, categorySlug: string): HomeSide {
   return {
     id: dto.id,
-    url: dto.url,
+    url: formatArticleSlug(dto.id, dto.url),
     title: dto.title,
     author: dto.author,
     publicationDate: dto.publishedAt,

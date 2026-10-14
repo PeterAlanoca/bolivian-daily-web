@@ -1,146 +1,155 @@
 <div class="site-main">
   <div class="container">
     <!-- Breadcrumb -->
-    <div
-      class="breadcrumb"
-      style="
-        font-family: var(--font-sans);
-        font-size: 11px;
-        color: var(--gray-light);
-        letter-spacing: 0.05em;
-        margin-bottom: 28px;
-        text-transform: uppercase;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-      "
-    >
-      <a routerLink="/" style="color: var(--gray-mid); font-weight: 500">Inicio</a>
-      <span style="color: var(--gray-border)">&rsaquo;</span>
-      @if (articleCategory()) {
-        <a [routerLink]="['/', articleCategory()?.slug]" style="font-weight: 700; color: var(--black)">
-          {{ articleCategory()?.name }}
+    <nav class="breadcrumb" aria-label="Ruta de navegación">
+      <a routerLink="/" class="breadcrumb__link">Inicio</a>
+      <span class="breadcrumb__sep">&rsaquo;</span>
+      @if (articleCategory(); as cat) {
+        <a [routerLink]="['/', cat.slug]" class="breadcrumb__link breadcrumb__link--current">
+          {{ cat.name }}
+        </a>
+      } @else if (category()) {
+        <a [routerLink]="['/', category()]" class="breadcrumb__link breadcrumb__link--current">
+          {{ category() }}
         </a>
       }
-    </div>
+    </nav>
 
-    @if (article()) {
-      <div class="article-view-layout" style="margin-top: 0">
-        <!-- Left: Main Article Detail -->
-        <article class="article-view-layout__main">
-          <header class="article-header">
-            @if (article()?.pretitle) {
-              <div class="article-pretitle">{{ article()?.pretitle }}</div>
-            }
-            <h1 class="article-title">{{ article()?.title }}</h1>
+    @if (loading()) {
+      <!-- Loading Skeleton -->
+      <div class="article-view-layout">
+        <div class="article-view-layout__main">
+          <div class="skeleton-pill skeleton-anim" style="width: 140px; height: 14px; margin-bottom: 16px"></div>
+          <div class="skeleton-pill skeleton-anim" style="width: 90%; height: 38px; margin-bottom: 12px"></div>
+          <div class="skeleton-pill skeleton-anim" style="width: 70%; height: 38px; margin-bottom: 20px"></div>
+          <div class="skeleton-pill skeleton-anim" style="width: 80%; height: 20px; margin-bottom: 24px"></div>
 
-            @if (article()?.subtitle) {
-              <p class="article-subtitle">
-                {{ article()?.subtitle }}
-              </p>
-            }
+          <div class="skeleton-meta skeleton-anim" style="height: 36px; margin-bottom: 28px"></div>
+          <div class="skeleton-hero skeleton-anim" style="width: 100%; aspect-ratio: 16/9; margin-bottom: 32px"></div>
 
-            <div class="article-meta">
-              @if (articleCategory()) {
-                <div class="article-meta__category">
-                  <a [routerLink]="['/', articleCategory()?.slug]">{{ articleCategory()?.name }}</a>
-                </div>
-              }
-              @if (article()?.author) {
-                <div class="article-meta__author">Por {{ article()?.author }}</div>
-              }
-              @if (article()?.publication_date) {
-                <div class="article-meta__date">
-                  {{ formatFullDate(article()?.publication_date!) }}
-                </div>
-              }
-              @if (article()?.source) {
-                <div class="article-meta__source">Fuente: {{ article()?.source?.name }}</div>
-              }
-            </div>
-          </header>
+          <div class="skeleton-pill skeleton-anim" style="width: 100%; height: 16px; margin-bottom: 12px"></div>
+          <div class="skeleton-pill skeleton-anim" style="width: 95%; height: 16px; margin-bottom: 12px"></div>
+          <div class="skeleton-pill skeleton-anim" style="width: 90%; height: 16px; margin-bottom: 24px"></div>
+          <div class="skeleton-pill skeleton-anim" style="width: 98%; height: 16px; margin-bottom: 12px"></div>
+          <div class="skeleton-pill skeleton-anim" style="width: 85%; height: 16px; margin-bottom: 12px"></div>
+        </div>
 
-          <!-- Hero image -->
-          @if (heroImageUrl()) {
-            <div class="article-hero-image">
-              <img [src]="heroImageUrl()" [alt]="article()?.title" />
-              @if (article()?.author) {
-                <p class="article-hero-caption">
-                  {{ article()?.author }} / {{ article()?.source?.name || 'Bolivian Daily' }}
-                </p>
-              }
-            </div>
-          }
-
-          <!-- Intro / Excerpt (enter) -->
-          @if (article()?.enter) {
-            <div
-              style="
-                font-family: var(--font-body);
-                font-size: 20px;
-                font-weight: 600;
-                line-height: 1.6;
-                color: var(--black);
-                margin-bottom: 32px;
-              "
-            >
-              {{ article()?.enter }}
-            </div>
-          }
-
-          <!-- Body Content (HTML rendered safely) -->
-          <div class="article-body" [innerHTML]="sanitizedBody()"></div>
-
-          <!-- Additional multimedia gallery -->
-          @if (galleryImages().length > 0) {
-            <div style="margin-top: 48px; border-top: 1px solid var(--gray-border); padding-top: 32px">
-              <div class="section-header" style="margin-bottom: 24px">
-                <span class="section-header__name">Galería de Imágenes</span>
-              </div>
-              <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px">
-                @for (img of galleryImages(); track img.id) {
-                  <figure style="margin: 0">
-                    <img
-                      [src]="img.url"
-                      [alt]="img.description || article()?.title"
-                      style="width: 100%; aspect-ratio: 4/3; object-fit: cover; border: 1px solid var(--gray-border)"
-                    />
-                    @if (img.description) {
-                      <figcaption
-                        style="
-                          font-family: var(--font-sans);
-                          font-size: 11px;
-                          color: var(--gray-mid);
-                          margin-top: 8px;
-                          font-style: italic;
-                          line-height: 1.4;
-                        "
-                      >
-                        {{ img.description }}
-                      </figcaption>
-                    }
-                  </figure>
-                }
-              </div>
-            </div>
-          }
-        </article>
-
-        <!-- Right: Sidebar (Related news of this category) -->
         <div class="article-view-layout__sidebar">
-          <app-sidebar [relatedNews]="relatedCategoryNews()"></app-sidebar>
+          <app-sidebar [relatedNews]="[]" [excludedIds]="excludedArticleIds()"></app-sidebar>
+        </div>
+      </div>
+    } @else if (error()) {
+      <!-- Error State -->
+      <div class="article-state-card">
+        <div class="article-state-card__icon" aria-hidden="true">&excl;</div>
+        <h2 class="article-state-card__title">No se pudo cargar la noticia</h2>
+        <p class="article-state-card__desc">{{ error() }}</p>
+        <div class="article-state-card__actions">
+          <button type="button" class="btn-retry" (click)="retry()">
+            Reintentar
+          </button>
+          <a routerLink="/" class="btn-home">Volver a Inicio</a>
         </div>
       </div>
     } @else {
-      <div style="text-align: center; padding: 80px 0; font-family: var(--font-sans); color: var(--gray-light)">
-        <p style="font-size: 24px; margin-bottom: 8px">Artículo no encontrado</p>
-        <p>La noticia que buscas no existe o ha sido retirada.</p>
-        <a
-          routerLink="/"
-          style="display: inline-block; margin-top: 24px; color: var(--blue-accent); text-decoration: underline"
-          >Volver a Inicio</a
-        >
-      </div>
+      @if (article(); as art) {
+        <!-- Success State: Article Detail -->
+        <div class="article-view-layout">
+          <!-- Main Column -->
+          <article class="article-view-layout__main">
+            <header class="article-header">
+              @if (art.pretitle) {
+                <div class="article-pretitle">{{ art.pretitle }}</div>
+              }
+              <h1 class="article-title">{{ art.title }}</h1>
+
+              @if (art.subtitle) {
+                <p class="article-subtitle">{{ art.subtitle }}</p>
+              }
+
+              <div class="article-meta">
+                @if (articleCategory(); as cat) {
+                  <div class="article-meta__category">
+                    <a [routerLink]="['/', cat.slug]">{{ cat.name }}</a>
+                  </div>
+                }
+                @if (art.author) {
+                  <div class="article-meta__author">Por {{ art.author }}</div>
+                }
+                @if (art.publishedAt) {
+                  <div class="article-meta__date">
+                    {{ formatFullDate(art.publishedAt) }}
+                  </div>
+                }
+                <div class="article-meta__source">Fuente: Bolivian Daily</div>
+              </div>
+            </header>
+
+            <!-- Hero Image -->
+            @if (heroImage(); as hero) {
+              <div class="article-hero-image">
+                <img [src]="hero.url" [alt]="hero.description || art.title" />
+                @if (hero.description || art.author) {
+                  <p class="article-hero-caption">
+                    {{ hero.description || (art.author + ' / Bolivian Daily') }}
+                  </p>
+                }
+              </div>
+            }
+
+            <!-- Lead Paragraph -->
+            @if (art.lead) {
+              <div class="article-lead">
+                {{ art.lead }}
+              </div>
+            }
+
+            <!-- Body Content (Sanitized HTML) -->
+            <div class="article-body" [innerHTML]="sanitizedBody()"></div>
+
+            <!-- Additional Multimedia Gallery -->
+            @if (galleryImages().length > 0) {
+              <section class="article-gallery" aria-label="Galería de imágenes">
+                <div class="section-header">
+                  <span class="section-header__name">Galería de Imágenes</span>
+                </div>
+                <div class="article-gallery__grid">
+                  @for (img of galleryImages(); track img.id) {
+                    <figure class="article-gallery__item">
+                      <img [src]="img.url" [alt]="img.description || art.title" loading="lazy" />
+                      @if (img.description) {
+                        <figcaption class="article-gallery__caption">
+                          {{ img.description }}
+                        </figcaption>
+                      }
+                    </figure>
+                  }
+                </div>
+              </section>
+            }
+          </article>
+
+          <!-- Right Column: Sidebar -->
+          <aside class="article-view-layout__sidebar" aria-label="Contenido relacionado">
+            <app-sidebar
+              [relatedNews]="relatedCategoryNews()"
+              [excludedIds]="excludedArticleIds()"
+            ></app-sidebar>
+          </aside>
+        </div>
+      } @else {
+        <!-- 404 Not Found State -->
+        <div class="article-state-card">
+          <div class="article-state-card__icon" aria-hidden="true">&quest;</div>
+          <h2 class="article-state-card__title">Artículo no encontrado</h2>
+          <p class="article-state-card__desc">
+            La noticia que buscas no existe o ha sido retirada.
+          </p>
+          <div class="article-state-card__actions">
+            <a routerLink="/" class="btn-home">Volver a Inicio</a>
+          </div>
+        </div>
+      }
     }
   </div>
 </div>
