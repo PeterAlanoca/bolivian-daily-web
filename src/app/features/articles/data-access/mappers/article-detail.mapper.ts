@@ -1,4 +1,3 @@
-import { formatArticleSlug } from '@core/utils/slug.utils';
 import { ArticleDetail, ArticleMedia } from '../../models/article-detail.model';
 import { ArticleDetailApiDto, ArticleMediaApiDto } from '../dtos/article-detail.dto';
 
@@ -14,23 +13,16 @@ export function mapArticleMediaDtoToModel(dto: ArticleMediaApiDto): ArticleMedia
 export function mapArticleDetailDtoToModel(dto: ArticleDetailApiDto): ArticleDetail {
   return {
     id: dto.id,
-    intranetId: dto.intranetId ?? undefined,
-    userId: dto.userId,
+    originalId: dto.originalId ?? undefined,
     newsSourceId: dto.newsSourceId ?? undefined,
     categoryId: dto.categoryId ?? undefined,
-    url: dto.url,
-    slug: formatArticleSlug(dto.id, dto.url),
-    pretitle: dto.pretitle ?? undefined,
+    slug: dto.slug,
+    originalUrl: dto.originalUrl,
     title: dto.title,
-    subtitle: dto.subtitle ?? undefined,
     lead: dto.lead ?? undefined,
     body: dto.body,
     author: dto.author ?? undefined,
-    state: dto.state,
     publishedAt: dto.publishedAt,
-    scrapedAt: dto.scrapedAt,
-    createdAt: dto.createdAt,
-    updatedAt: dto.updatedAt,
     media: (dto.media ?? []).map(mapArticleMediaDtoToModel),
   };
 }

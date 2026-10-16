@@ -3,12 +3,14 @@ import { RecentArticleDto } from '../dtos/recent-article.dto';
 import { RecentArticle } from '../../models/recent-article.model';
 
 export function mapRecentArticleDtoToModel(dto: RecentArticleDto): RecentArticle {
+  const formattedSlug = formatArticleSlug(dto.id, dto.slug);
   return {
     id: dto.id,
-    url: formatArticleSlug(dto.id, dto.url),
-    pretitle: dto.pretitle,
+    slug: dto.slug,
+    originalUrl: dto.originalUrl,
+    url: formattedSlug,
     title: dto.title,
-    subtitle: dto.subtitle,
+    lead: dto.lead,
     author: dto.author,
     publicationDate: dto.publicationDate,
     categorySlug: dto.categorySlug,

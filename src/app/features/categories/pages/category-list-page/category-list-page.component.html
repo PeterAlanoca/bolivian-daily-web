@@ -35,30 +35,12 @@
             }
 
             <div style="display: flex; flex-direction: column; justify-content: flex-start">
-              @if (hero.pretitle) {
-                <div class="hero__pretitle" style="margin-bottom: 8px">
-                  {{ hero.pretitle }}
-                </div>
-              }
               <h2 class="hero__title" style="font-size: clamp(24px, 3vw, 38px); margin-bottom: 12px">
                 <a [routerLink]="['/', activeCategory()?.slug, hero.url]">{{ hero.title }}</a>
               </h2>
-              @if (hero.subtitle) {
+              @if (hero.lead) {
                 <p class="hero__subtitle" style="font-size: 16px; margin-bottom: 12px">
-                  {{ hero.subtitle }}
-                </p>
-              }
-              @if (hero.enter) {
-                <p
-                  style="
-                    font-family: var(--font-body);
-                    font-size: 15px;
-                    color: var(--gray-dark);
-                    line-height: 1.6;
-                    margin-bottom: 16px;
-                  "
-                >
-                  {{ hero.enter }}
+                  {{ hero.lead }}
                 </p>
               }
               <div class="hero__meta" style="margin-top: auto">

@@ -1,10 +1,10 @@
 export interface HomeArticle {
   id: number;
+  slug: string;
+  originalUrl: string;
   url: string;
-  pretitle: string | null;
   title: string;
-  subtitle: string | null;
-  enter: string | null;
+  lead: string | null;
   author: string | null;
   publicationDate: string;
   categorySlug: string;
@@ -14,6 +14,8 @@ export interface HomeArticle {
 
 export interface HomeSide {
   id: number;
+  slug: string;
+  originalUrl: string;
   url: string;
   title: string;
   author: string | null;

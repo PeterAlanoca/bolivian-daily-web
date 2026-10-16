@@ -13,13 +13,14 @@ import {
 } from '../dtos/home-feed.dto';
 
 export function mapHomeFeedArticleDtoToModel(dto: HomeFeedArticleApiDto): HomeArticle {
+  const formattedSlug = formatArticleSlug(dto.id, dto.slug);
   return {
     id: dto.id,
-    url: formatArticleSlug(dto.id, dto.url),
-    pretitle: dto.pretitle,
+    slug: dto.slug,
+    originalUrl: dto.originalUrl,
+    url: formattedSlug,
     title: dto.title,
-    subtitle: dto.subtitle,
-    enter: dto.lead,
+    lead: dto.lead,
     author: dto.author,
     publicationDate: dto.publishedAt,
     categorySlug: dto.category.slug,
@@ -29,9 +30,12 @@ export function mapHomeFeedArticleDtoToModel(dto: HomeFeedArticleApiDto): HomeAr
 }
 
 export function mapHomeFeedSideDtoToModel(dto: HomeFeedSideApiDto, categorySlug: string): HomeSide {
+  const formattedSlug = formatArticleSlug(dto.id, dto.slug);
   return {
     id: dto.id,
-    url: formatArticleSlug(dto.id, dto.url),
+    slug: dto.slug,
+    originalUrl: dto.originalUrl,
+    url: formattedSlug,
     title: dto.title,
     author: dto.author,
     publicationDate: dto.publishedAt,

@@ -24,23 +24,22 @@ export function mapCategoryArticleItemDtoToNews(
   dto: CategoryArticleItemApiDto,
   category: Category,
 ): News {
-  const formattedSlug = formatArticleSlug(dto.id, dto.url);
+  const formattedSlug = formatArticleSlug(dto.id, dto.slug);
   return {
     id: dto.id,
     user_id: 1,
     category_id: category.id,
     source_id: 1,
-    intranet_id: dto.intranetId ?? undefined,
+    original_id: dto.originalId ?? undefined,
+    slug: dto.slug,
+    original_url: dto.originalUrl,
     url: formattedSlug,
-    pretitle: dto.pretitle ?? undefined,
     title: dto.title,
-    path: `${category.slug}/${formattedSlug}`,
-    subtitle: dto.subtitle ?? undefined,
-    enter: dto.lead ?? undefined,
+    lead: dto.lead ?? undefined,
     body: '',
     author: dto.author ?? undefined,
     publication_date: dto.publishedAt,
-    state: dto.state,
+    state: 'A',
     category,
     multimedia: (dto.media ?? []).map((m) => ({
       id: m.id,

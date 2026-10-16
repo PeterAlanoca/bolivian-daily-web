@@ -31,16 +31,15 @@ export interface News {
   user_id: number;
   category_id: number;
   source_id: number;
-  intranet_id?: number;
-  url: string; // The URL slug or path
-  pretitle?: string;
+  original_id?: number | null;
+  slug?: string;
+  original_url?: string;
+  url: string;
   title: string;
-  path: string;
-  subtitle?: string;
-  enter?: string; // The excerpt/intro text
+  lead?: string;
   body: string;
   author?: string;
-  publication_date: string; // ISO Date String
+  publication_date: string;
   state: string;
   category?: Category;
   source?: Source;

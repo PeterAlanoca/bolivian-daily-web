@@ -93,27 +93,27 @@
   color: var(--gray-mid);
 }
 
-.article-meta__category a {
-  font-weight: 800;
-  color: var(--black);
-  text-decoration: none;
-}
-
-.article-meta__category a:hover {
-  text-decoration: underline;
-}
-
 .article-meta__author {
   font-weight: 800;
   color: var(--black);
 }
 
-.article-meta__date {
-  color: var(--gray-dark);
+.article-meta__author a,
+.article-meta__author-link {
+  color: var(--black);
+  text-decoration: none;
+  font-weight: 800;
+  transition: color 0.15s ease;
 }
 
-.article-meta__source {
-  font-style: italic;
+.article-meta__author a:hover,
+.article-meta__author-link:hover {
+  color: var(--wine, #8b1d24);
+  text-decoration: underline;
+}
+
+.article-meta__date {
+  color: var(--gray-dark);
 }
 
 /* Hero image */

@@ -7,22 +7,15 @@ export interface ArticleMedia {
 
 export interface ArticleDetail {
   id: number;
-  intranetId?: number;
-  userId: number;
+  originalId?: number | null;
   newsSourceId?: number;
   categoryId?: number;
-  url: string;
   slug: string;
-  pretitle?: string;
+  originalUrl: string;
   title: string;
-  subtitle?: string;
-  lead?: string;
+  lead?: string | null;
   body: string;
   author?: string;
-  state: string;
   publishedAt: string;
-  scrapedAt: string;
-  createdAt: string;
-  updatedAt: string;
   media: ArticleMedia[];
 }

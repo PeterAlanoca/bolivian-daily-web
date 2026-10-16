@@ -1,9 +1,10 @@
 export interface RecentArticle {
   id: number;
+  slug: string;
+  originalUrl: string;
   url: string;
-  pretitle: string | null;
   title: string;
-  subtitle: string | null;
+  lead?: string | null;
   author: string | null;
   publicationDate: string;
   categorySlug: string;

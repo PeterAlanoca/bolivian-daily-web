@@ -14,9 +14,9 @@
     <h2 class="featured-card__title">
       <a [routerLink]="['/', news().category?.slug, news().url]">{{ news().title }}</a>
     </h2>
-    @if (news().subtitle) {
+    @if (news().lead) {
       <p class="featured-card__subtitle">
-        {{ news().subtitle | truncate: 120 }}
+        {{ news().lead | truncate: 120 }}
       </p>
     }
     <div class="featured-card__meta">
@@ -36,17 +36,12 @@
         <img class="category-main__image" [src]="imageUrl()" [alt]="news().title" loading="lazy" />
       </a>
     }
-    @if (news().pretitle) {
-      <div class="category-main__pretitle">
-        {{ news().pretitle }}
-      </div>
-    }
     <h2 class="category-main__title">
       <a [routerLink]="['/', news().category?.slug, news().url]">{{ news().title }}</a>
     </h2>
-    @if (news().subtitle) {
+    @if (news().lead) {
       <p class="category-main__subtitle">
-        {{ news().subtitle | truncate: 140 }}
+        {{ news().lead | truncate: 140 }}
       </p>
     }
     <div class="category-main__meta">
@@ -61,11 +56,6 @@
 <!-- LIST ITEM CARD (HEADLINE ONLY) -->
 @if (type() === 'list-item') {
   <article class="category-list__item">
-    @if (news().pretitle) {
-      <div class="category-list__pretitle">
-        {{ news().pretitle }}
-      </div>
-    }
     <h3 class="category-list__title">
       <a [routerLink]="['/', news().category?.slug, news().url]">{{ news().title }}</a>
     </h3>
@@ -86,17 +76,12 @@
         <img class="news-card__image" [src]="imageUrl()" [alt]="news().title" loading="lazy" />
       </a>
     }
-    @if (news().pretitle) {
-      <div class="news-card__pretitle">
-        {{ news().pretitle }}
-      </div>
-    }
     <h2 class="news-card__title">
       <a [routerLink]="['/', news().category?.slug, news().url]">{{ news().title }}</a>
     </h2>
-    @if (news().subtitle) {
+    @if (news().lead) {
       <p class="news-card__subtitle">
-        {{ news().subtitle | truncate: 100 }}
+        {{ news().lead | truncate: 100 }}
       </p>
     }
     <div class="news-card__meta">

@@ -1,9 +1,9 @@
 export interface RecentArticleDto {
   id: number;
-  url: string;
-  pretitle: string | null;
+  slug: string;
+  originalUrl: string;
   title: string;
-  subtitle: string | null;
+  lead: string | null;
   author: string | null;
   publicationDate: string;
   categorySlug: string;

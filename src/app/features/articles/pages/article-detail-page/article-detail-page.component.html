@@ -58,30 +58,35 @@
           <!-- Main Column -->
           <article class="article-view-layout__main">
             <header class="article-header">
-              @if (art.pretitle) {
-                <div class="article-pretitle">{{ art.pretitle }}</div>
-              }
               <h1 class="article-title">{{ art.title }}</h1>
 
-              @if (art.subtitle) {
-                <p class="article-subtitle">{{ art.subtitle }}</p>
+              @if (art.lead) {
+                <p class="article-subtitle">{{ art.lead }}</p>
               }
 
               <div class="article-meta">
-                @if (articleCategory(); as cat) {
-                  <div class="article-meta__category">
-                    <a [routerLink]="['/', cat.slug]">{{ cat.name }}</a>
-                  </div>
-                }
                 @if (art.author) {
-                  <div class="article-meta__author">Por {{ art.author }}</div>
+                  <div class="article-meta__author">
+                    Por
+                    @if (art.originalUrl) {
+                      <a
+                        [href]="art.originalUrl"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="article-meta__author-link"
+                      >
+                        {{ art.author }}
+                      </a>
+                    } @else {
+                      {{ art.author }}
+                    }
+                  </div>
                 }
                 @if (art.publishedAt) {
                   <div class="article-meta__date">
                     {{ formatFullDate(art.publishedAt) }}
                   </div>
                 }
-                <div class="article-meta__source">Fuente: Bolivian Daily</div>
               </div>
             </header>
 
@@ -94,13 +99,6 @@
                     {{ hero.description || (art.author + ' / Bolivian Daily') }}
                   </p>
                 }
-              </div>
-            }
-
-            <!-- Lead Paragraph -->
-            @if (art.lead) {
-              <div class="article-lead">
-                {{ art.lead }}
               </div>
             }
 

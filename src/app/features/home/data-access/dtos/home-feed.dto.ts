@@ -13,10 +13,9 @@ export interface HomeFeedCategoryApiDto {
 
 export interface HomeFeedArticleApiDto {
   id: number;
-  url: string;
-  pretitle: string | null;
+  slug: string;
+  originalUrl: string;
   title: string;
-  subtitle: string | null;
   lead: string | null;
   author: string | null;
   publishedAt: string;
@@ -26,7 +25,8 @@ export interface HomeFeedArticleApiDto {
 
 export interface HomeFeedSideApiDto {
   id: number;
-  url: string;
+  slug: string;
+  originalUrl: string;
   title: string;
   author: string | null;
   publishedAt: string;

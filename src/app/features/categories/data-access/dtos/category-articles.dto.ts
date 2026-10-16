@@ -2,9 +2,6 @@ export interface CategoryApiDto {
   id: number;
   name: string;
   slug: string;
-  state: string;
-  createdAt: string;
-  updatedAt: string;
 }
 
 export interface CategoryArticleMediaApiDto {
@@ -16,16 +13,13 @@ export interface CategoryArticleMediaApiDto {
 
 export interface CategoryArticleItemApiDto {
   id: number;
-  intranetId: number | null;
-  url: string;
-  pretitle: string | null;
+  originalId: number | null;
+  slug: string;
+  originalUrl: string;
   title: string;
-  subtitle: string | null;
   lead: string | null;
   author: string | null;
-  state: string;
   publishedAt: string;
-  createdAt: string;
   media: CategoryArticleMediaApiDto[];
 }
 
